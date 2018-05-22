@@ -41,6 +41,7 @@
     <?php foreach ($bookstates as $bookstate): ?>
       <tr>
 
+
         <td><?= $bookstate->has('book') ? $this->Html->link($bookstate->book->isbn, ['controller' => 'Books', 'action' => 'view', $bookstate->book->id]) : '' ?></td>
         <td><?= $bookstate->has('category') ? $this->Html->link($bookstate->category->id, ['controller' => 'Categories', 'action' => 'view', $bookstate->category->id]) : '' ?></td>
         <td><?= $bookstate->has('book') ? $this->Html->link($bookstate->book->isbn, ['controller' => 'Books', 'action' => 'view', $bookstate->book->id]) : '' ?></td>
