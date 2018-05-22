@@ -4,7 +4,7 @@
  * @var \App\Model\Entity\Reservation $reservation
  */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
+<div class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Form->postLink(
@@ -13,15 +13,7 @@
                 ['confirm' => __('Are you sure you want to delete # {0}?', $reservation->id)]
             )
         ?></li>
-        <li><?= $this->Html->link(__('List Reservations'), ['action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('List Users'), ['controller' => 'Users', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New User'), ['controller' => 'Users', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Bookstates'), ['controller' => 'Bookstates', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Bookstate'), ['controller' => 'Bookstates', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Books'), ['controller' => 'Books', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Book'), ['controller' => 'Books', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Rentals'), ['controller' => 'Rentals', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Rental'), ['controller' => 'Rentals', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('予約リストに戻る'), ['action' => 'index']) ?></li>
     </ul>
 </nav>
 <div class="reservations form large-9 medium-8 columns content">
