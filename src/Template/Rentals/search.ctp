@@ -7,9 +7,14 @@
 
 <div id="right_top">
   <h1>貸出</h1>
-  会員ID
+  書名
+  <input id="search" type="text">
+  著者名
+  <input id="search" type="text">
+  ISBN
   <input id="search" type="text">
   <input type="submit" value="検索"><br>
+
 </div>
 
 <div id="right_center">
@@ -21,9 +26,9 @@
         <th scope="col"><?= $this->Paginator->sort('id','ID') ?></th>
         <th scope="col"><?= $this->Paginator->sort('bookstate_id','資料ID') ?></th>
         <th scope="col"><?= $this->Paginator->sort('reservation_id','予約情報') ?></th>
-        <th scope="col"><?= $this->Paginator->sort('rent_date','貸出年月日') ?></th>
-        <th scope="col"><?= $this->Paginator->sort('return_date','返却日') ?></th>
-        <th scope="col"><?= $this->Paginator->sort('pressing_letter','督促状') ?></th>
+        <th scope="col"><?= $this->Paginator->sort('isbn','ISBN') ?></th>
+        <th scope="col"><?= $this->Paginator->sort('所蔵の有無') ?></th>
+        <input type="checkbox">
         <th scope="col" class="actions"><?= __('Actions') ?></th>
       </tr>
     </thead>
@@ -55,6 +60,6 @@
 </div>
 <div id="right_under">
 
-
-  <button class="under_button">資料検索画面へ</button>
+  <button class="under_button">さらに追加</button>
+  <button class="under_button">貸出処理へ</button>
 </div>
