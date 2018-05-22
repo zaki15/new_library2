@@ -18,6 +18,10 @@ class ReservationsController extends AppController
      *
      * @return \Cake\Http\Response|void
      */
+    public function initialize(){
+       $this->viewBuilder()->setLayout('main');
+     }
+
     public function index()
     {
         $this->paginate = [

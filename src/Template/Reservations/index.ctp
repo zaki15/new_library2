@@ -14,7 +14,7 @@
      <input type="text" name="search">
      <input type="button" value="検索">
     </form>
-    <input type="button" name="" value="予約画面へ" onclick="location.href='http://localhost/library_system/reservations/add'">
+    <input type="button" name="" value="予約画面へ" onclick="location.href='http://localhost/library_system2/reservations/add'">
 </div>
 <br>
 <br>
