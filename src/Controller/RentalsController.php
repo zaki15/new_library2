@@ -30,7 +30,8 @@ class RentalsController extends AppController
         ];
         $rentals = $this->paginate($this->Rentals);
 
-        $this->set(compact('rentals'));
+        $this->set(compact('users'));
+
     }
 
     /**
@@ -73,7 +74,7 @@ class RentalsController extends AppController
     }
 
     public function search(){
-    //下の文章何？
+    //下のコード何？
       $this->paginate = [
           'contain' => ['Bookstates', 'Users', 'Reservations']
       ];
