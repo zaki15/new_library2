@@ -79,6 +79,7 @@
               <th scope="col"><?= __('Rent Date') ?></th>
               <th scope="col"><?= __('Return Date') ?></th>
               <th scope="col"><?= __('Pressing Letter') ?></th>
+              <th scope="col">check</th>
               <th scope="col" class="actions"><?= __('Actions') ?></th>
           </tr>
           <?php foreach ($user->rentals as $rentals): ?>
@@ -90,6 +91,7 @@
               <td><?= h($rentals->rent_date) ?></td>
               <td><?= h($rentals->return_date) ?></td>
               <td><?= h($rentals->pressing_letter) ?></td>
+              <td><?php echo $this->Form->create(); ?><?=$this->Form->checkbox('returncheck')?><?php echo $this->Form->end(); ?></td>
               <td class="actions">
                   <?= $this->Html->link(__('View'), ['controller' => 'Rentals', 'action' => 'view', $rentals->id]) ?>
                   <?= $this->Html->link(__('Edit'), ['controller' => 'Rentals', 'action' => 'edit', $rentals->id]) ?>

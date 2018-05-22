@@ -7,6 +7,7 @@
 
 <div id="right_top">
   <h1>貸出</h1>
+  会員ID:〇〇 <br>
   書名
   <input id="search" type="text">
   著者名
