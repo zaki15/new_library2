@@ -38,21 +38,19 @@
       <th scope="col"><?= $this->Paginator->sort('変更・削除') ?></th>
       <th scope="col" class="actions"><?= __('Actions') ?></th>
     </tr>
-    <?php foreach ($bookstates as $bookstate): ?>
+    <?php foreach ($this as $bookstate): ?>
       <tr>
-
 
         <td><?= $bookstate->has('book') ? $this->Html->link($bookstate->book->isbn, ['controller' => 'Books', 'action' => 'view', $bookstate->book->id]) : '' ?></td>
         <td><?= $bookstate->has('category') ? $this->Html->link($bookstate->category->id, ['controller' => 'Categories', 'action' => 'view', $bookstate->category->id]) : '' ?></td>
-        <td><?= $bookstate->has('book') ? $this->Html->link($bookstate->book->isbn, ['controller' => 'Books', 'action' => 'view', $bookstate->book->id]) : '' ?></td>
-        <td><?= h($bookstate->address) ?></td>
-        <td><?= h($bookstate->tel) ?></td>
-        <td><?= h($bookstate->email) ?></td>
-        <td><?= h($bookstate->birthday) ?></td>
+        <td><?= $bookstate->has('book') ? $this->Html->link($bookstate->book->name, ['controller' => 'Books', 'action' => 'view', $bookstate->book->name]) : '' ?></td>
+        <td><?= $bookstate->has('book') ? $this->Html->link($bookstate->book->author, ['controller' => 'Books', 'action' => 'view', $bookstate->book->author]) : '' ?></td>
+        <td><?= $bookstate->has('publisher') ? $this->Html->link($bookstate->publisher->publisher, ['controller' => 'Books', 'action' => 'view', $bookstate->publisher->publisher]) : '' ?></td>
+        <td><?= $bookstate->has('book') ? $this->Html->link($bookstate->book->publish_date, ['controller' => 'Books', 'action' => 'view', $bookstate->book->publish_date]) : '' ?></td>
         <td><?= $this->Number->format($bookstate->id) ?></td>
-        <td><?= h($bookstate->role) ?></td>
-        <td><?= h($bookstate->add_date) ?></td>
+        <td><?= h($bookstate->arrival_date) ?></td>
         <td><?= h($bookstate->delete_date) ?></td>
+        <td><?= h($bookstate->state) ?></td>
         <td class="actions">
           <?= $this->Html->link(__('View'), ['action' => 'view', $bookstate->id]) ?>
           <?= $this->Html->link(__('Edit'), ['action' => 'edit', $bookstate->id]) ?>
@@ -60,10 +58,6 @@
         </td>
       </tr>
     <?php endforeach; ?>
-
-
-
-
 
   </table>
 
