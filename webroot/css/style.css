@@ -7,6 +7,7 @@ a:hover {
     color: #15848F;
 }
 
+
 a {
     color: #1798A5;
 }
@@ -14,6 +15,7 @@ a {
 .side-nav li a:not(.button) {
     color: #15848F;
 }
+
 
 .side-nav li a:not(.button):hover {
     color: #15848F;

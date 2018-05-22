@@ -21,6 +21,7 @@ use Cake\Validation\Validator;
  * @method \App\Model\Entity\Bookstate[] patchEntities($entities, array $data, array $options = [])
  * @method \App\Model\Entity\Bookstate findOrCreate($search, callable $callback = null, $options = [])
  */
+ 
 class BookstatesTable extends Table
 {
 
