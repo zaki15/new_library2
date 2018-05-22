@@ -7,12 +7,8 @@
 
 <div id="right_top">
   <h1>貸出</h1>
-  <!--<input id="search" type="text">
-  <input type="submit" value="検索"><br>-->
-  <?=$this->Form->create('id_form', ['url' => ['action' => 'index', 'type' => 'post']])?>
-  <?=$this->Form->input('id', ['label' => '会員ID']);?>
-  <?=$this->Form->submit('検索')?>
-  <?=$this->Form->end()?>
+  <input id="search" type="text">
+  <input type="submit" value="検索"><br>
 </div>
 
 <div id="right_center">

@@ -7,7 +7,6 @@
 
 <div id="right_top">
   <h1>貸出</h1>
-  会員ID:〇〇 <br>
   書名
   <input id="search" type="text">
   著者名
@@ -29,7 +28,6 @@
         <th scope="col"><?= $this->Paginator->sort('reservation_id','予約情報') ?></th>
         <th scope="col"><?= $this->Paginator->sort('isbn','ISBN') ?></th>
         <th scope="col"><?= $this->Paginator->sort('所蔵の有無') ?></th>
-        <input type="checkbox">
         <th scope="col" class="actions"><?= __('Actions') ?></th>
       </tr>
     </thead>
