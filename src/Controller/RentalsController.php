@@ -13,6 +13,11 @@ use App\Controller\AppController;
 class RentalsController extends AppController
 {
 
+  public function initialize(){
+    $this->viewBuilder()->setLayout('main');
+
+  }
+
     /**
      * Index method
      *
@@ -55,16 +60,37 @@ class RentalsController extends AppController
         if ($this->request->is('post')) {
             $rental = $this->Rentals->patchEntity($rental, $this->request->getData());
             if ($this->Rentals->save($rental)) {
-                $this->Flash->success(__('The rental has been saved.'));
+                $this->Flash->success(__('貸出が完了しました。'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The rental could not be saved. Please, try again.'));
+            $this->Flash->error(__('貸出に失敗しました。入力し直して下さい。'));
         }
         $bookstates = $this->Rentals->Bookstates->find('list', ['limit' => 200]);
         $users = $this->Rentals->Users->find('list', ['limit' => 200]);
         $reservations = $this->Rentals->Reservations->find('list', ['limit' => 200]);
         $this->set(compact('rental', 'bookstates', 'users', 'reservations'));
+    }
+
+    public function search(){
+    //下の文章何？
+      $this->paginate = [
+          'contain' => ['Bookstates', 'Users', 'Reservations']
+      ];
+      $rentals = $this->paginate($this->Rentals);
+
+      $this->set(compact('rentals'));
+
+    }
+
+    public function returncheck(){
+      $this->paginate = [
+          'contain' => ['Bookstates', 'Users', 'Reservations']
+      ];
+      $rentals = $this->paginate($this->Rentals);
+
+      $this->set(compact('rentals'));
+
     }
 
     /**
@@ -113,4 +139,5 @@ class RentalsController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
 }
