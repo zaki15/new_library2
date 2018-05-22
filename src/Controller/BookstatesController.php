@@ -16,6 +16,7 @@ class BookstatesController extends AppController
     $this->viewBuilder()->setLayout('main');
     $this->loadComponent('RequestHandler');
     $this->loadComponent('Flash');
+    $this->loadModel('Books');
 
   }
 
@@ -122,11 +123,9 @@ class BookstatesController extends AppController
           $find = $this->request->data['Books']['find'];
           $data = $this->Bookstates->findByIsbnOrTitle($find,$find);
         }else {
-          $data = $this->Bookstates->find('all',
-          ['order'=>['isbn'=>'asc']]
-        );
+          $data = $this->Bookstates->find('all')->contain('Books','Publishers','Categories');
         }
-        $this->set('data',$data);
+        $this->set('bookstates',$data);
     }
 
 }

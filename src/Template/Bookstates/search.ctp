@@ -38,15 +38,15 @@
       <th scope="col"><?= $this->Paginator->sort('変更・削除') ?></th>
       <th scope="col" class="actions"><?= __('Actions') ?></th>
     </tr>
-    <?php foreach ($this as $bookstate): ?>
+    <?php foreach ($bookstates as $bookstate): ?>
       <tr>
 
-        <td><?= $bookstate->has('book') ? $this->Html->link($bookstate->book->isbn, ['controller' => 'Books', 'action' => 'view', $bookstate->book->id]) : '' ?></td>
+        <td><?= $bookstate->has('book') ? $bookstate->book->isbn : '' ?></td>
         <td><?= $bookstate->has('category') ? $this->Html->link($bookstate->category->id, ['controller' => 'Categories', 'action' => 'view', $bookstate->category->id]) : '' ?></td>
-        <td><?= $bookstate->has('book') ? $this->Html->link($bookstate->book->name, ['controller' => 'Books', 'action' => 'view', $bookstate->book->name]) : '' ?></td>
-        <td><?= $bookstate->has('book') ? $this->Html->link($bookstate->book->author, ['controller' => 'Books', 'action' => 'view', $bookstate->book->author]) : '' ?></td>
-        <td><?= $bookstate->has('publisher') ? $this->Html->link($bookstate->publisher->publisher, ['controller' => 'Books', 'action' => 'view', $bookstate->publisher->publisher]) : '' ?></td>
-        <td><?= $bookstate->has('book') ? $this->Html->link($bookstate->book->publish_date, ['controller' => 'Books', 'action' => 'view', $bookstate->book->publish_date]) : '' ?></td>
+        <td><?= $bookstate->has('book') ? $bookstate->book->name : '' ?></td>
+        <td><?= $bookstate->has('book') ? $bookstate->book->author : '' ?></td>
+        <td><?= $bookstate->has('publisher') ? $bookstate->publisher->name : '' ?></td>
+        <td><?= $bookstate->has('book') ? $bookstate->book->publish_date : '' ?></td>
         <td><?= $this->Number->format($bookstate->id) ?></td>
         <td><?= h($bookstate->arrival_date) ?></td>
         <td><?= h($bookstate->delete_date) ?></td>
