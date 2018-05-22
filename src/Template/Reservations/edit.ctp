@@ -4,8 +4,8 @@
  * @var \App\Model\Entity\Reservation $reservation
  */
 ?>
-<div class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
+<div id="right_top">
+    <!-- <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Form->postLink(
                 __('Delete'),
@@ -14,12 +14,15 @@
             )
         ?></li>
         <li><?= $this->Html->link(__('予約リストに戻る'), ['action' => 'index']) ?></li>
-    </ul>
-</nav>
-<div class="reservations form large-9 medium-8 columns content">
+    </ul> -->
+    <br>
+    <?= $this->Html->link(__('予約リストに戻る'), ['action' => 'index']) ?>
+</div>
+
+<div id="right_center">
     <?= $this->Form->create($reservation) ?>
     <fieldset>
-        <legend><?= __('Edit Reservation') ?></legend>
+        <legend><?= __('予約情報の編集') ?></legend>
         <?php
             echo $this->Form->control('user_id', ['options' => $users]);
             echo $this->Form->control('bookstate_id', ['options' => $bookstates]);
@@ -27,6 +30,6 @@
             echo $this->Form->control('date');
         ?>
     </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
+    <?= $this->Form->button(__('確定')) ?>
     <?= $this->Form->end() ?>
 </div>

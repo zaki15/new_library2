@@ -4,51 +4,57 @@
  * @var \App\Model\Entity\Reservation $reservation
  */
 ?>
-<div>
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('Edit Reservation'), ['action' => 'edit', $reservation->id]) ?> </li>
-        <li><?= $this->Form->postLink(__('Delete Reservation'), ['action' => 'delete', $reservation->id], ['confirm' => __('Are you sure you want to delete # {0}?', $reservation->id)]) ?> </li>
-        <li><?= $this->Html->link(__('List Reservations'), ['action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Reservation'), ['action' => 'add']) ?> </li>
-
-    </ul>
+<br>
+<div id="right_top">
+        <br>
+        <?= $this->Html->link(__('閲覧中の予約情報を編集'), ['action' => 'edit', $reservation->id]) ?><br>
+        <?= $this->Form->postLink(__('閲覧中の予約情報を削除'), ['action' => 'delete', $reservation->id], ['confirm' => __('Are you sure you want to delete # {0}?', $reservation->id)]) ?><br>
+        <?= $this->Html->link(__('予約リストに戻る'), ['action' => 'index']) ?><br>
 </div>
+
 <div class="reservations view large-9 medium-8 columns content">
-    <h3><?= h($reservation->id) ?></h3>
-    <table class="vertical-table">
+    <h3>予約ID:<?= h($reservation->id) ?></h3>
+    <table id="right_center" border="1">
         <tr>
-            <th scope="row"><?= __('User') ?></th>
+            <th scope="row"><?= __('利用者ID') ?></th>
             <td><?= $reservation->has('user') ? $this->Html->link($reservation->user->id, ['controller' => 'Users', 'action' => 'view', $reservation->user->id]) : '' ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('名字') ?></th>
+            <td><?= $reservation->has('user') ? $this->Html->link($reservation->user->last_name, ['controller' => 'Users', 'action' => 'view', $reservation->user->last_name]) : '' ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('名前') ?></th>
+            <td><?= $reservation->has('user') ? $this->Html->link($reservation->user->first_name, ['controller' => 'Users', 'action' => 'view', $reservation->user->first_name]) : '' ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('Bookstate') ?></th>
             <td><?= $reservation->has('bookstate') ? $this->Html->link($reservation->bookstate->id, ['controller' => 'Bookstates', 'action' => 'view', $reservation->bookstate->id]) : '' ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Book') ?></th>
+            <th scope="row"><?= __('書名') ?></th>
             <td><?= $reservation->has('book') ? $this->Html->link($reservation->book->name, ['controller' => 'Books', 'action' => 'view', $reservation->book->id]) : '' ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Id') ?></th>
+            <th scope="row"><?= __('予約ID') ?></th>
             <td><?= $this->Number->format($reservation->id) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Date') ?></th>
+            <th scope="row"><?= __('予約日') ?></th>
             <td><?= h($reservation->date) ?></td>
         </tr>
     </table>
-    <div class="related">
+    <div id="right_under">
         <h4><?= __('Related Rentals') ?></h4>
         <?php if (!empty($reservation->rentals)): ?>
-        <table cellpadding="0" cellspacing="0">
+        <table border="1" id="test_table">
             <tr>
-                <th scope="col"><?= __('Id') ?></th>
+                <th scope="col"><?= __('貸出Id') ?></th>
                 <th scope="col"><?= __('Bookstate Id') ?></th>
-                <th scope="col"><?= __('User Id') ?></th>
-                <th scope="col"><?= __('Reservation Id') ?></th>
-                <th scope="col"><?= __('Rent Date') ?></th>
-                <th scope="col"><?= __('Return Date') ?></th>
+                <th scope="col"><?= __('利用者ID') ?></th>
+                <th scope="col"><?= __('予約ID') ?></th>
+                <th scope="col"><?= __('貸出日') ?></th>
+                <th scope="col"><?= __('返却日') ?></th>
                 <th scope="col"><?= __('Pressing Letter') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>

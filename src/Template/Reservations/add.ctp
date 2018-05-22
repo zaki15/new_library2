@@ -15,8 +15,12 @@
     <fieldset>
         <legend><?= __('予約情報の入力') ?></legend>
         <?php
-            echo $this->Form->control('user_id', ['options' => $users]);
-            echo $this->Form->control('bookstate_id', ['options' => $bookstates]);
+            echo "利用者ID";
+            echo $this->Form->text('user_id', ['options' => $users]);
+            echo "<br>";
+            echo "bookstateID";
+            echo $this->Form->text('bookstate_id', ['options' => $bookstates]);
+            echo "<br>";
             echo $this->Form->control('book_id', ['options' => $books]);
             echo $this->Form->control('date');
         ?>
