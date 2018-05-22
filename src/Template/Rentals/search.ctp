@@ -33,6 +33,7 @@
         <th scope="col"><?= $this->Paginator->sort('廃棄年月日') ?></th>
         <th scope="col"><?= $this->Paginator->sort('蔵書冊数') ?></th>
         <th scope="col"><?= $this->Paginator->sort('変更・削除') ?></th>
+        <th scope="col"></th>
       </tr>
       <?php foreach ($rentals as $rentals): ?>
         <tr>
@@ -47,6 +48,8 @@
           <td><?= h($rentals->delete_date) ?></td>
           <td><?= h($rentals->state) ?></td>
           <td><?= $this->Form->checkbox('') ?></td>
+          <td><?= $this->Form->checkbox('') ?></td>
+
         </tr>
       <?php endforeach; ?>
 
@@ -67,7 +70,7 @@
 
 
   <div id="right_under">
-
+<!--以下、遷移なし-->
   <button class="under_button">さらに追加</button>
   <button class="under_button">貸出処理へ</button>
 </div>

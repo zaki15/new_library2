@@ -91,7 +91,7 @@
               <td><?= h($rentals->rent_date) ?></td>
               <td><?= h($rentals->return_date) ?></td>
               <td><?= h($rentals->pressing_letter) ?></td>
-              <td><?php echo $this->Form->create(); ?><?=$this->Form->checkbox('returncheck')?><?php echo $this->Form->end(); ?></td>
+              <td><?= $this->Form->checkbox('') ?></td>
               <td class="actions">
                   <?= $this->Html->link(__('View'), ['controller' => 'Rentals', 'action' => 'view', $rentals->id]) ?>
                   <?= $this->Html->link(__('Edit'), ['controller' => 'Rentals', 'action' => 'edit', $rentals->id]) ?>
@@ -139,7 +139,7 @@
 
   </div>
 <div id="right_under">
-
+<!--以下、遷移なし-->
   <button class="under_button">さらに追加</button>
 
   <button class="under_button">返却処理へ</button>

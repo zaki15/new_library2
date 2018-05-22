@@ -137,6 +137,8 @@
 </div>
 <div id="right_under">
 
+<?=$this->Form->create(null,['type'=>'post','url'=>["controller"=>"Rentals", "action" => "search"]]) ?>
+<?=$this->Form->submit('資料検索画面へ')?>
+<?=$this->Form->end()?>
 
-  <button class="under_button">資料検索画面へ</button>
 </div>
