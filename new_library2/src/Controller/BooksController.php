@@ -12,15 +12,7 @@ use App\Controller\AppController;
  */
 class BooksController extends AppController
 {
-  public function initialize(){
-    $this->viewBuilder()->setLayout('main');
-    $this->loadComponent('RequestHandler');
-    $this->loadComponent('Flash');
-    $this->loadModel('Books');
-    $this->loadModel('Publishers');
-    $this->loadModel('Categories');
 
-  }
     /**
      * Index method
      *
@@ -119,5 +111,4 @@ class BooksController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
-
 }

@@ -23,18 +23,11 @@
     </ul>
 </nav>
 <div class="bookstates form large-9 medium-8 columns content">
-    <?= $this->Form->create($entity,
-        ['type'=>['controller'=>'Bookstates','action'=>'index']]) ?>
-    <fieldset class="form">
-        <legend><?= __('変更・削除') ?></legend>
+    <?= $this->Form->create($bookstate) ?>
+    <fieldset>
+        <legend><?= __('Edit Bookstate') ?></legend>
         <?php
-            echo $this->Form->control('book_id');
-            echo $this->Form->control('isbn');
-            echo $this->Form->control('name');
-            echo $this->Form->control('author',['options' => $books]);
-            echo $this->Form->control('publisher');
-            echo $this->Form->control('publish_date');
-            echo $this->Form->control('id');
+            echo $this->Form->control('book_id', ['options' => $books]);
             echo $this->Form->control('arrival_date');
             echo $this->Form->control('delete_date');
             echo $this->Form->control('state');

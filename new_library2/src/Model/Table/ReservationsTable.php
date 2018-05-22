@@ -7,22 +7,22 @@ use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
- * Bookstates Model
+ * Reservations Model
  *
+ * @property \App\Model\Table\UsersTable|\Cake\ORM\Association\BelongsTo $Users
+ * @property \App\Model\Table\BookstatesTable|\Cake\ORM\Association\BelongsTo $Bookstates
  * @property \App\Model\Table\BooksTable|\Cake\ORM\Association\BelongsTo $Books
  * @property \App\Model\Table\RentalsTable|\Cake\ORM\Association\HasMany $Rentals
- * @property \App\Model\Table\ReservationsTable|\Cake\ORM\Association\HasMany $Reservations
  *
- * @method \App\Model\Entity\Bookstate get($primaryKey, $options = [])
- * @method \App\Model\Entity\Bookstate newEntity($data = null, array $options = [])
- * @method \App\Model\Entity\Bookstate[] newEntities(array $data, array $options = [])
- * @method \App\Model\Entity\Bookstate|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\Bookstate patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \App\Model\Entity\Bookstate[] patchEntities($entities, array $data, array $options = [])
- * @method \App\Model\Entity\Bookstate findOrCreate($search, callable $callback = null, $options = [])
+ * @method \App\Model\Entity\Reservation get($primaryKey, $options = [])
+ * @method \App\Model\Entity\Reservation newEntity($data = null, array $options = [])
+ * @method \App\Model\Entity\Reservation[] newEntities(array $data, array $options = [])
+ * @method \App\Model\Entity\Reservation|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \App\Model\Entity\Reservation patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
+ * @method \App\Model\Entity\Reservation[] patchEntities($entities, array $data, array $options = [])
+ * @method \App\Model\Entity\Reservation findOrCreate($search, callable $callback = null, $options = [])
  */
- 
-class BookstatesTable extends Table
+class ReservationsTable extends Table
 {
 
     /**
@@ -35,19 +35,24 @@ class BookstatesTable extends Table
     {
         parent::initialize($config);
 
-        $this->setTable('bookstates');
+        $this->setTable('reservations');
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
 
+        $this->belongsTo('Users', [
+            'foreignKey' => 'user_id',
+            'joinType' => 'INNER'
+        ]);
+        $this->belongsTo('Bookstates', [
+            'foreignKey' => 'bookstate_id',
+            'joinType' => 'INNER'
+        ]);
         $this->belongsTo('Books', [
             'foreignKey' => 'book_id',
             'joinType' => 'INNER'
         ]);
         $this->hasMany('Rentals', [
-            'foreignKey' => 'bookstate_id'
-        ]);
-        $this->hasMany('Reservations', [
-            'foreignKey' => 'bookstate_id'
+            'foreignKey' => 'reservation_id'
         ]);
     }
 
@@ -64,19 +69,9 @@ class BookstatesTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
-            ->date('arrival_date')
-            ->requirePresence('arrival_date', 'create')
-            ->notEmpty('arrival_date');
-
-        $validator
-            ->date('delete_date')
-            ->requirePresence('delete_date', 'create')
-            ->notEmpty('delete_date');
-
-        $validator
-            ->integer('state')
-            ->requirePresence('state', 'create')
-            ->notEmpty('state');
+            ->dateTime('date')
+            ->requirePresence('date', 'create')
+            ->notEmpty('date');
 
         return $validator;
     }
@@ -90,6 +85,8 @@ class BookstatesTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
+        $rules->add($rules->existsIn(['user_id'], 'Users'));
+        $rules->add($rules->existsIn(['bookstate_id'], 'Bookstates'));
         $rules->add($rules->existsIn(['book_id'], 'Books'));
 
         return $rules;
