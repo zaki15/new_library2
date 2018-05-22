@@ -23,8 +23,8 @@
       <td rowspan="4"><a href="http://localhost/library_system/bookstates/">資料管理</a></td>
       <td><a href="http://localhost/library_system/bookstates/search">資料検索</a></td></tr>
     <tr><td><a href="http://localhost/library_system/bookstates/add">資料目録・台帳情報追加</a></td></tr>
-    <tr><td><a href="http://localhost/library_system/bookstates/edit">資料目録・台帳情報変更</a></td></tr>
-    <tr><td><a href="http://localhost/library_system/bookstates/edit">資料削除</a></td></tr>
+    <tr><td><a href="http://localhost/library_system/bookstates/search">資料目録・台帳情報変更</a></td></tr>
+    <tr><td><a href="http://localhost/library_system/bookstates/search">資料削除</a></td></tr>
 
 
 

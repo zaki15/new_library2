@@ -10,17 +10,18 @@
 <h1>資料検索</h1>
 <?= $this->Form->create(null,
 ['type'=>'post',
-'url'=>['controller'=>'Bookstates',
-'action'=>'edit']])?>
+'url'=>['controller'=>'Books',
+'action'=>'search']])?>
 
-<div><?= $this->Form->text('Bookstates.find') ?></div>
+<div><?= $this->Form->text('Books.find') ?></div>
 <div><?= $this->Form->submit('検索') ?></div>
 <div><?= $this->Form->end() ?></div>
 </div>
 
 <div id="right_center">
 
-  <h3><?= __('Bookstates') ?></h3>
+
+  <h3><?= __('Books') ?></h3>
 
   <table  border='1' id="test_table">
     <tr>
@@ -35,20 +36,25 @@
       <th scope="col"><?= $this->Paginator->sort('廃棄年月日') ?></th>
       <th scope="col"><?= $this->Paginator->sort('蔵書冊数') ?></th>
       <th scope="col"><?= $this->Paginator->sort('変更・削除') ?></th>
+      <th scope="col" class="actions"><?= __('Actions') ?></th>
     </tr>
-    <?php foreach ($bookstates as $bookstate): ?>
+    <?php foreach ($books as $book): ?>
       <tr>
-        <td><?= h($bookstate->book->isbn)  ?></td>
-        <td><?= h($bookstate->category->id)  ?></td>
-        <td><?= h($bookstate->book->name) ?></td>
-        <td><?= h($bookstate->book->author) ?></td>
-        <td><?= h($bookstate->publisher->publisher) ?></td>
-        <td><?= h($bookstate->book->publish_date) ?></td>
+        <td><?= h($book->isbn)  ?></td>
+        <td><?= h($book->category->id)  ?></td>
+        <td><?= h($book->name) ?></td>
+        <td><?= h($book->author) ?></td>
+        <td><?= h($book->publisher->publisher) ?></td>
+        <td><?= h($book->publish_date) ?></td>
         <td><?= h($this->Number->format($bookstate->id)) ?></td>
-        <td><?= h($bookstate->arrival_date) ?></td>
-        <td><?= h($bookstate->delete_date) ?></td>
-        <td><?= h($bookstate->state) ?></td>
-        <td><?= $this->Form->checkbox('') ?></td>
+        <td><?= h($book->bookstate->arrival_date) ?></td>
+        <td><?= h($book->bookstate->delete_date) ?></td>
+        <td><?= h($book->bookstate->state) ?></td>
+        <td class="actions">
+          <?= $this->Html->link(__('View'), ['action' => 'view', $book->id]) ?>
+          <?= $this->Html->link(__('Edit'), ['action' => 'edit', $book->id]) ?>
+          <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $book->id], ['confirm' => __('Are you sure you want to delete # {0}?', $book->id)]) ?>
+        </td>
       </tr>
     <?php endforeach; ?>
 
@@ -65,12 +71,4 @@
     </ul>
 
   </div>
-</div>
-<div id="right_under">
-  <?= $this->Form->create(null,
-  ['type'=>'post',
-  'url'=>['controller'=>'Bookstates',
-  'action'=>'edit']])?>
-  <?= $this->Form->button(__('変更・削除画面へ'),['class'=>'under_button']) ?>
-  <?= $this->Form->end() ?>
 </div>

@@ -122,9 +122,9 @@ class BookstatesController extends AppController
     public function search()
     {
         if ($this->request->isPost()){
-          $find = $this->request->data['books']['find'];
+          $find = $this->request->data['Bookstates']['find'];
           $condition = ['conditions'=>['id'=>$find]];
-          $data = $this->Books->find('all')->contain(['Bookstates','Publishers','Categories']);
+          $data = $this->Bookstates->find('all')->contain('Books','Publishers','Categories');
         }else {
           $data = $this->Bookstates->find('all')->contain('Books','Publishers','Categories');
         }
