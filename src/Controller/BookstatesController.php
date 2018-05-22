@@ -17,6 +17,8 @@ class BookstatesController extends AppController
     $this->loadComponent('RequestHandler');
     $this->loadComponent('Flash');
     $this->loadModel('Books');
+    $this->loadModel('Publishers');
+    $this->loadModel('Categories');
 
   }
 
@@ -120,8 +122,9 @@ class BookstatesController extends AppController
     public function search()
     {
         if ($this->request->isPost()){
-          $find = $this->request->data['Books']['find'];
-          $data = $this->Bookstates->findByIsbnOrTitle($find,$find);
+          $find = $this->request->data['books']['find'];
+          $condition = ['conditions'=>['id'=>$find]];
+          $data = $this->Books->find('all')->contain(['Bookstates','Publishers','Categories']);
         }else {
           $data = $this->Bookstates->find('all')->contain('Books','Publishers','Categories');
         }
