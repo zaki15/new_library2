@@ -12,6 +12,12 @@ use App\Controller\AppController;
  */
 class BookstatesController extends AppController
 {
+  public function initialize(){
+    $this->viewBuilder()->setLayout('main');
+    $this->loadComponent('RequestHandler');
+    $this->loadComponent('Flash');
+
+  }
 
     /**
      * Index method
@@ -52,7 +58,7 @@ class BookstatesController extends AppController
     public function add()
     {
         $bookstate = $this->Bookstates->newEntity();
-        if ($this->request->is('post')) {
+        if ($this->request->isPost()) {
             $bookstate = $this->Bookstates->patchEntity($bookstate, $this->request->getData());
             if ($this->Bookstates->save($bookstate)) {
                 $this->Flash->success(__('The bookstate has been saved.'));
@@ -109,4 +115,18 @@ class BookstatesController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+    public function search()
+    {
+        if ($this->request->isPost()){
+          $find = $this->request->data['Books']['find'];
+          $data = $this->Bookstates->findByIsbnOrTitle($find,$find);
+        }else {
+          $data = $this->Bookstates->find('all',
+          ['order'=>['isbn'=>'asc']]
+        );
+        }
+        $this->set('data',$data);
+    }
+
 }
