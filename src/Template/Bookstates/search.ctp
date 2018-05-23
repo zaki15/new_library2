@@ -44,7 +44,7 @@
         <td><?= h($bookstate->author) ?></td>
         <td><?= h($bookstate->publisher) ?></td>
         <td><?= h($bookstate->publish_date) ?></td>
-        <td><?= h($bookstate->bookstates_id) ?></td>
+        <td><?= h($bookstate->book_id) ?></td>
         <td><?= h($bookstate->arrival_date) ?></td>
         <td><?= h($bookstate->delete_date) ?></td>
         <td><?= h($bookstate->state) ?></td>

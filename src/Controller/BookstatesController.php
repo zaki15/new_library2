@@ -127,7 +127,8 @@ class BookstatesController extends AppController
     {
         if ($this->request->isPost()){
           $find = $this->request->data['Bookstates']['find'];
-          $condition = ['conditions'=> ['or'=>['name like'=>$find,'isbn like'=>$find]]];
+          $condition = ['conditions'=> ['or'=>['name like'=>'%'.$find.'%','isbn like'=>'%'.$find.'%']],
+                        'order'=>['isbn'=>'asc']];
           $data = $this->Bookstates->find('all',$condition)->join([
             'book' => [
             'table' => 'Books',
@@ -151,7 +152,7 @@ class BookstatesController extends AppController
           'author'=>'book.author',
           'publisher'=>'publisher.publisher',
           'publish_date'=>'book.publish_date',
-          'bookstates_id'=>'bookstates.id',
+          'book_id'=>'book.id',
           'arrival_date'=>'bookstates.arrival_date',
           'delete_date'=>'bookstates.delete_date',
           'state'=>'bookstates.state',
@@ -181,7 +182,7 @@ class BookstatesController extends AppController
           'author'=>'book.author',
           'publisher'=>'publisher.publisher',
           'publish_date'=>'book.publish_date',
-          'bookstates_id'=>'bookstates.id',
+          'book_id'=>'book.id',
           'arrival_date'=>'bookstates.arrival_date',
           'delete_date'=>'bookstates.delete_date',
           'state'=>'bookstates.state',
