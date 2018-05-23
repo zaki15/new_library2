@@ -124,11 +124,13 @@ class BookstatesController extends AppController
         if ($this->request->isPost()){
           $find = $this->request->data['Bookstates']['find'];
           $condition = ['conditions'=>['id'=>$find]];
-          $data = $this->Bookstates->find('all')->contain('Books','Publishers','Categories');
+          $data = $this->Bookstates->find('all')->contain('Books');
         }else {
-          $data = $this->Bookstates->find('all')->contain('Books','Publishers','Categories');
+          $data = $this->Bookstates->find('all')->contain('Books');
         }
         $this->set('bookstates',$data);
+
+
     }
 
 }

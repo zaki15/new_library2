@@ -19,10 +19,11 @@
 </div>
 
 <div id="right_center">
-  <?php
-var_dump($bookstates);
-   ?>
-
+<pre>
+<?php
+print_r($bookstates);
+ ?>
+ </pre>
   <h3><?= __('Bookstates') ?></h3>
 
   <table  border='1' id="test_table">
@@ -39,13 +40,13 @@ var_dump($bookstates);
       <th scope="col"><?= $this->Paginator->sort('蔵書冊数') ?></th>
       <th scope="col"><?= $this->Paginator->sort('変更・削除') ?></th>
     </tr>
-    <?php foreach ($bookstates as $bookstate): ?>
+    <?php foreach ($bookstates->toArray() as $bookstate): ?>
       <tr>
         <td><?= h($bookstate->book->isbn)  ?></td>
-        <td><?= h($bookstate->category->id)  ?></td>
+        <td><?= $bookstate->has('category') ? $bookstate->category->id : ''  ?></td>
         <td><?= h($bookstate->book->name) ?></td>
         <td><?= h($bookstate->book->author) ?></td>
-        <td><?= h($bookstate->publisher->publisher) ?></td>
+        <td><?= $bookstate->book->publisher ?></td>
         <td><?= h($bookstate->book->publish_date) ?></td>
         <td><?= h($this->Number->format($bookstate->id)) ?></td>
         <td><?= h($bookstate->arrival_date) ?></td>
