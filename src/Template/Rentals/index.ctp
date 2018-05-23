@@ -1,63 +1,174 @@
 <?php
 /**
- * @var \App\View\AppView $this
- * @var \App\Model\Entity\Rental[]|\Cake\Collection\CollectionInterface $rentals
- */
+* @var \App\View\AppView $this
+* @var \App\Model\Entity\Rental[]|\Cake\Collection\CollectionInterface $rentals
+*/
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New Rental'), ['action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Bookstates'), ['controller' => 'Bookstates', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Bookstate'), ['controller' => 'Bookstates', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Users'), ['controller' => 'Users', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New User'), ['controller' => 'Users', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Reservations'), ['controller' => 'Reservations', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Reservation'), ['controller' => 'Reservations', 'action' => 'add']) ?></li>
-    </ul>
-</nav>
-<div class="rentals index large-9 medium-8 columns content">
-    <h3><?= __('Rentals') ?></h3>
-    <table cellpadding="0" cellspacing="0">
-        <thead>
-            <tr>
-                <th scope="col"><?= $this->Paginator->sort('id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('bookstate_id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('user_id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('reservation_id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('rent_date') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('return_date') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('pressing_letter') ?></th>
-                <th scope="col" class="actions"><?= __('Actions') ?></th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($rentals as $rental): ?>
-            <tr>
-                <td><?= $this->Number->format($rental->id) ?></td>
-                <td><?= $rental->has('bookstate') ? $this->Html->link($rental->bookstate->id, ['controller' => 'Bookstates', 'action' => 'view', $rental->bookstate->id]) : '' ?></td>
-                <td><?= $rental->has('user') ? $this->Html->link($rental->user->id, ['controller' => 'Users', 'action' => 'view', $rental->user->id]) : '' ?></td>
-                <td><?= $rental->has('reservation') ? $this->Html->link($rental->reservation->id, ['controller' => 'Reservations', 'action' => 'view', $rental->reservation->id]) : '' ?></td>
-                <td><?= h($rental->rent_date) ?></td>
-                <td><?= h($rental->return_date) ?></td>
-                <td><?= $this->Number->format($rental->pressing_letter) ?></td>
-                <td class="actions">
-                    <?= $this->Html->link(__('View'), ['action' => 'view', $rental->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $rental->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $rental->id], ['confirm' => __('Are you sure you want to delete # {0}?', $rental->id)]) ?>
-                </td>
-            </tr>
-            <?php endforeach; ?>
-        </tbody>
+
+<div id="right_top">
+  <h1>貸出</h1>
+
+  <?=$this->Form->create(null,['type'=>'post','url'=>['controller'=>'Rentals','action'=>'index']]) ?>
+  <?=$this->Form->text('Rentals.find') ?>
+  <?=$this->Form->submit('検索') ?>
+  <?=$this->Form->end() ?>
+</div>
+
+<div id="right_center">
+  <?php var_dump($count); ?>
+  <h3><?= __('Rentals') ?></h3>
+
+  <table id="test_table" border="1">
+    <?php if (!empty($rentals)): ?>
+      <?php foreach ($rentals as $rentals): ?>
+
+
+      <tr>
+        <th scope="row"><?= __('ユーザーId') ?></th>
+        <td><?= $this->Number->format($rentals->user->id) ?></td>
+      </tr>
+      <tr>
+        <th scope="row"><?= __('姓') ?></th>
+        <td><?= h($rentals->user->last_name) ?></td>
+      </tr>
+      <tr>
+        <th scope="row"><?= __('名') ?></th>
+        <td><?= h($rentals->user->first_name) ?></td>
+      </tr>
+      <tr>
+        <th scope="row"><?= __('郵便番号') ?></th>
+        <td><?= h($rentals->user->postal) ?></td>
+      </tr>
+      <tr>
+        <th scope="row"><?= __('住所') ?></th>
+        <td><?= h($rentals->user->address) ?></td>
+      </tr>
+      <tr>
+        <th scope="row"><?= __('電話番号') ?></th>
+        <td><?= h($rentals->user->tel) ?></td>
+      </tr>
+      <tr>
+        <th scope="row"><?= __('Email') ?></th>
+        <td><?= h($rentals->user->email) ?></td>
+      </tr>
+      <tr>
+        <th scope="row"><?= __('パスワード') ?></th>
+        <td><?= h($rentals->user->password) ?></td>
+      </tr>
+      <tr>
+        <th scope="row"><?= __('会員種別') ?></th>
+        <td><?= h($rentals->user->role) ?></td>
+      </tr>
+      <tr>
+        <th scope="row"><?= __('生年月日') ?></th>
+        <td><?= h($rentals->user->birthday) ?></td>
+      </tr>
+      <tr>
+        <th scope="row"><?= __('入会年月日') ?></th>
+        <td><?= h($rentals->user->add_date) ?></td>
+      </tr>
+      <tr>
+        <th scope="row"><?= __('退会年月日') ?></th>
+        <td><?= h($rentals->user->delete_date) ?></td>
+        <td><?= h($rentals->id) ?></td>
+        <td><?= h($rentals->bookstate_id) ?></td>
+        <td><?= h($rentals->user_id) ?></td>
+        <td><?= h($rentals->reservation_id) ?></td>
+        <td><?= h($rentals->rent_date) ?></td>
+        <td><?= h($rentals->return_date) ?></td>
+        <td><?= h($rentals->pressing_letter) ?></td>
+      </tr>
+
+
+
+      <?php endforeach; ?>
+    <?php else:?>
+      <td ><font color="red">会員idを入力して検索してください</font></td>
     </table>
-    <div class="paginator">
-        <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('first')) ?>
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
-            <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-            <?= $this->Paginator->last(__('last') . ' >>') ?>
-        </ul>
-        <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>
-    </div>
+
+  <?php endif; ?>
+
+
+
+  <table class="test_table" border="1">
+    <?php if (!empty($rentals)): ?>
+
+      <tr>
+        <th scope="col"><?= __('Id') ?></th>
+        <th scope="col"><?= __('Bookstate Id') ?></th>
+        <th scope="col"><?= __('User Id') ?></th>
+        <th scope="col"><?= __('Reservation Id') ?></th>
+        <th scope="col"><?= __('Rent Date') ?></th>
+        <th scope="col"><?= __('Return Date') ?></th>
+        <th scope="col"><?= __('Pressing Letter') ?></th>
+        <th scope="col" class="actions"><?= __('Actions') ?></th>
+      </tr>
+
+      <?php foreach ($rentals as $rentals): ?>
+
+        <tr>
+          <td><?= h($rentals->id) ?></td>
+          <td><?= h($rentals->bookstate_id) ?></td>
+          <td><?= h($rentals->user_id) ?></td>
+          <td><?= h($rentals->reservation_id) ?></td>
+          <td><?= h($rentals->rent_date) ?></td>
+          <td><?= h($rentals->return_date) ?></td>
+          <td><?= h($rentals->pressing_letter) ?></td>
+          <td class="actions">
+            <?= $this->Html->link(__('View'), ['controller' => 'Rentals', 'action' => 'view', $rentals->id]) ?>
+            <?= $this->Html->link(__('Edit'), ['controller' => 'Rentals', 'action' => 'edit', $rentals->id]) ?>
+            <?= $this->Form->postLink(__('Delete'), ['controller' => 'Rentals', 'action' => 'delete', $rentals->id], ['confirm' => __('Are you sure you want to delete # {0}?', $rentals->id)]) ?>
+          </td>
+        </tr>
+    <?php endforeach; ?>
+    <?php else:?>
+      <td>貸出情報はありません</td>
+
+    <?php endif; ?>
+  </table>
+
+  <h4><?= __('予約情報') ?></h4>
+  <table class="test_table" border="1">
+
+    <?php if (!empty($rentals->user->rental)): ?>
+      <tr>
+        <th scope="col"><?= __('Id') ?></th>
+        <th scope="col"><?= __('User Id') ?></th>
+        <th scope="col"><?= __('Bookstate Id') ?></th>
+        <th scope="col"><?= __('Book Id') ?></th>
+        <th scope="col"><?= __('Date') ?></th>
+        <th scope="col" class="actions"><?= __('Actions') ?></th>
+      </tr>
+      <?php foreach ($user->reservations as $reservations): ?>
+        <tr>
+          <td><?= h($reservations->id) ?></td>
+          <td><?= h($reservations->user_id) ?></td>
+          <td><?= h($reservations->bookstate_id) ?></td>
+          <td><?= h($reservations->book_id) ?></td>
+          <td><?= h($reservations->date) ?></td>
+          <td class="actions">
+            <?= $this->Html->link(__('View'), ['controller' => 'Reservations', 'action' => 'view', $reservations->id]) ?>
+            <?= $this->Html->link(__('Edit'), ['controller' => 'Reservations', 'action' => 'edit', $reservations->id]) ?>
+            <?= $this->Form->postLink(__('Delete'), ['controller' => 'Reservations', 'action' => 'delete', $reservations->id], ['confirm' => __('Are you sure you want to delete # {0}?', $reservations->id)]) ?>
+          </td>
+        </tr>
+      <?php endforeach; ?>
+    <?php else:?>
+      <td>予約情報はありません</td>
+
+    <?php endif; ?>
+  </table>
+
+
+</div>
+
+
+</div>
+<div id="right_under">
+
+<?=$this->Form->create(null,['type'=>'post','url'=>["controller"=>"Rentals", "action" => "search"]]) ?>
+<?=$this->Form->submit('資料検索画面へ')?>
+<!--もし延滞、貸出超過があった場合は押せない仕様にする。-->
+<?=$this->Form->end()?>
+
 </div>

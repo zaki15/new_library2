@@ -1,17 +1,23 @@
 <?php
 /**
- * @var \App\View\AppView $this
- * @var \App\Model\Entity\User $user
- */
+* @var \App\View\AppView $this
+* @var \App\Model\Entity\Rental[]|\Cake\Collection\CollectionInterface $rentals
+*/
 ?>
+
 <div id="right_top">
-  <h1>会員情報詳細</h1>
+  <h1>返却</h1>
+  <?=$this->Form->create(null,['type'=>'post','url'=>['controller'=>'Rentals','action'=>'returncheck']]) ?>
+  <?=$this->Form->text('Rentals.find') ?>
+  <?=$this->Form->submit('検索') ?>
+  <?=$this->Form->end() ?>
 </div>
 <div id="right_center">
   <br>
 
 
   <table id="test_table" border="1">
+    <?php if (!empty($user)): ?>
     <tr>
         <th scope="row"><?= __('ユーザーId') ?></th>
         <td><?= $this->Number->format($user->id) ?></td>
@@ -60,6 +66,9 @@
           <th scope="row"><?= __('退会年月日') ?></th>
           <td><?= h($user->delete_date) ?></td>
       </tr>
+    <?php else:?>
+      <td>idに対応する会員情報がありません</td>
+    <?php endif;?>
   </table>
 
   <h4><?= __('貸出情報') ?></h4>
@@ -130,17 +139,9 @@
 
 
 </div>
-
 <div id="right_under">
-  <button class="under_button">登録</button>
+<!--以下、遷移なし-->
+  <button class="under_button">さらに追加</button>
 
-
-  <button class="under_button">情報検索画面へ</button>
-</div>
-
-<div class="users view large-9 medium-8 columns content">
-
-
-
-
+  <button class="under_button">返却処理へ</button>
 </div>

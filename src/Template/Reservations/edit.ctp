@@ -4,8 +4,8 @@
  * @var \App\Model\Entity\Reservation $reservation
  */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
+<div id="right_top">
+    <!-- <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Form->postLink(
                 __('Delete'),
@@ -13,21 +13,16 @@
                 ['confirm' => __('Are you sure you want to delete # {0}?', $reservation->id)]
             )
         ?></li>
-        <li><?= $this->Html->link(__('List Reservations'), ['action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('List Users'), ['controller' => 'Users', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New User'), ['controller' => 'Users', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Bookstates'), ['controller' => 'Bookstates', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Bookstate'), ['controller' => 'Bookstates', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Books'), ['controller' => 'Books', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Book'), ['controller' => 'Books', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Rentals'), ['controller' => 'Rentals', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Rental'), ['controller' => 'Rentals', 'action' => 'add']) ?></li>
-    </ul>
-</nav>
-<div class="reservations form large-9 medium-8 columns content">
+        <li><?= $this->Html->link(__('予約リストに戻る'), ['action' => 'index']) ?></li>
+    </ul> -->
+    <br>
+    <?= $this->Html->link(__('予約リストに戻る'), ['action' => 'index']) ?>
+</div>
+
+<div id="right_center">
     <?= $this->Form->create($reservation) ?>
     <fieldset>
-        <legend><?= __('Edit Reservation') ?></legend>
+        <legend><?= __('予約情報の編集') ?></legend>
         <?php
             echo $this->Form->control('user_id', ['options' => $users]);
             echo $this->Form->control('bookstate_id', ['options' => $bookstates]);
@@ -35,6 +30,6 @@
             echo $this->Form->control('date');
         ?>
     </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
+    <?= $this->Form->button(__('確定')) ?>
     <?= $this->Form->end() ?>
 </div>

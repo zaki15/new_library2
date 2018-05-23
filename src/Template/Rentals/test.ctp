@@ -5,13 +5,18 @@
  */
 ?>
 <div id="right_top">
-  <h1>会員情報詳細</h1>
+  <h1>貸出</h1>
+  <?=$this->Form->create(null,['type'=>'post','url'=>['controller'=>'Rentals','action'=>'test']]) ?>
+  <?=$this->Form->text('Rentals.find') ?>
+  <?=$this->Form->submit('検索') ?>
+  <?=$this->Form->end() ?>
 </div>
 <div id="right_center">
   <br>
 
 
   <table id="test_table" border="1">
+    <?php if (!empty($user)): ?>
     <tr>
         <th scope="row"><?= __('ユーザーId') ?></th>
         <td><?= $this->Number->format($user->id) ?></td>
@@ -60,6 +65,9 @@
           <th scope="row"><?= __('退会年月日') ?></th>
           <td><?= h($user->delete_date) ?></td>
       </tr>
+    <?php else:?>
+      <td>idに対応する会員情報がありません</td>
+    <?php endif;?>
   </table>
 
   <h4><?= __('貸出情報') ?></h4>
