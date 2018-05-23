@@ -96,7 +96,7 @@ class RentalsController extends AppController
         $reservations = $this->Rentals->Reservations->find('list', ['limit' => 200]);
         $this->set(compact('rental', 'bookstates', 'users', 'reservations'));
     }
-r
+
     public function search(){
     //下のコード何？
       $this->paginate = [
