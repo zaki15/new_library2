@@ -36,20 +36,20 @@
       <th scope="col"><?= $this->Paginator->sort('廃棄年月日') ?></th>
       <th scope="col"><?= $this->Paginator->sort('蔵書冊数') ?></th>
       <th scope="col"><?= $this->Paginator->sort('変更・削除') ?></th>
-      <th scope="col" class="actions"><?= __('Actions') ?></th>
+
     </tr>
     <?php foreach ($books as $book): ?>
       <tr>
         <td><?= h($book->isbn)  ?></td>
-        <td><?= $book->has('category') ? $book->category->id : ?></td>
+        <td><?= $book->has('category') ? $book->category->id : ''?></td>
         <td><?= h($book->name) ?></td>
         <td><?= h($book->author) ?></td>
-        <td><?= h($book->publisher->publisher) ?></td>
+        <td><?= $book->has('publisher') ? $book->publisher->publisher : '' ?></td>
         <td><?= h($book->publish_date) ?></td>
-        <td><?= h($this->Number->format($bookstate->id)) ?></td>
-        <td><?= h($book->bookstate->arrival_date) ?></td>
-        <td><?= h($book->bookstate->delete_date) ?></td>
-        <td><?= h($book->bookstate->state) ?></td>
+        <td><?= h($this->Number->format($book->id)) ?></td>
+        <td><?= $book->has('bookstate') ? $book->bookstate->arrival_date : '' ?></td>
+        <td><?= $book->has('bookstate') ? $book->bookstate->delete_date : '' ?></td>
+        <td><?= $book->has('bookstate') ? $book->bookstate->state : '' ?></td>
         <td><?= $this->Form->checkbox('') ?></td>
       </tr>
     <?php endforeach; ?>
@@ -67,4 +67,12 @@
     </ul>
 
   </div>
+</div>
+<div id="right_under">
+  <?= $this->Form->create(null,
+  ['type'=>'post',
+  'url'=>['controller'=>'Bookstates',
+  'action'=>'edit']])?>
+  <?= $this->Form->button(__('変更・削除画面へ'),['class'=>'under_button']) ?>
+  <?= $this->Form->end() ?>
 </div>
