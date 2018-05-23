@@ -60,7 +60,21 @@ class BookstatesController extends AppController
      */
     public function add()
     {
+
         $bookstate = $this->Bookstates->newEntity();
+
+  //@okabe l66~76
+        /*$books = $this->Books->newEntity();
+        if ($this->request->isPost()) {
+
+            $book_id = $this->requestdata[''][''];
+            $bookstate_entity =['book_id'=>$book_id,'arrival_date'=>$arr_date];
+
+            $bookstate = $this->Bookstates->patchEntity($bookstate, $this->request->getData());
+            $book = $this->Books->patchEntity($books, $this->request->getData());
+
+            if ($this->Bookstates->save($bookstate) && $this->Books->save($books)) {*/
+
         $book = $this->Books->newEntity();
         if ($this->request->isPost()) {
             $book_id=$this->request->data['']['book_id'];//post
@@ -72,6 +86,7 @@ class BookstatesController extends AppController
             //$bookstate = $this->Bookstates->patchEntity($bookstate, $this->request->getData());
             //$book = $this->Books->patchEntity($bookstate, $this->request->getData());
             if ($this->Bookstates->save($bookstate)&&$this->Books->save($books)) {
+
                 $this->Flash->success(__('The bookstate has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
@@ -79,7 +94,9 @@ class BookstatesController extends AppController
             $this->Flash->error(__('The bookstate could not be saved. Please, try again.'));
         }
         $books = $this->Bookstates->Books->find('list', ['limit' => 200]);
-        $this->set(compact('bookstate', 'books'));
+        $categories = $this->Books->Categories->find('list', ['limit' => 200]);
+        $publishers = $this->Books->Publishers->find('list', ['limit' => 200]);
+        $this->set(compact('bookstate', 'books', 'categories', 'publishers'));
     }
 
     /**
@@ -92,11 +109,11 @@ class BookstatesController extends AppController
     public function edit($id = null)
     {
         $bookstate = $this->Bookstates->get($id, [
-            'contain' => []
+            'contain' => ['Books']
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $bookstate = $this->Bookstates->patchEntity($bookstate, $this->request->getData());
-            if ($this->Bookstates->save($bookstate)) {
+            if ($this->Bookstates->saveAll($bookstate)) {
                 $this->Flash->success(__('The bookstate has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
@@ -104,7 +121,9 @@ class BookstatesController extends AppController
             $this->Flash->error(__('The bookstate could not be saved. Please, try again.'));
         }
         $books = $this->Bookstates->Books->find('list', ['limit' => 200]);
-        $this->set(compact('bookstate', 'books'));
+        $categories = $this->Books->Categories->find('list', ['limit' => 200]);
+        $publishers = $this->Books->Publishers->find('list', ['limit' => 200]);
+        $this->set(compact('bookstate', 'books', 'categories', 'publishers'));
     }
 
     /**
@@ -131,6 +150,73 @@ class BookstatesController extends AppController
     {
         if ($this->request->isPost()){
           $find = $this->request->data['Bookstates']['find'];
+
+  //@tani l154~217
+        /*  $condition = ['conditions'=> ['or'=>['name like'=>'%'.$find.'%','isbn like'=>'%'.$find.'%']],
+                        'order'=>['isbn'=>'asc']];
+          $data = $this->Bookstates->find('all',$condition)->join([
+            'book' => [
+            'table' => 'Books',
+            'type' => 'INNER',
+            'conditions' => 'book.id = Bookstates.book_id',
+        ],
+        'publisher' => [
+            'table' => 'Publishers',
+            'type' => 'INNER',
+            'conditions' => 'publisher.id = book.publisher_id',
+        ],
+        'category' => [
+            'table' => 'Categories',
+            'type' => 'INNER',
+            'conditions' => 'category.id = book.category_id',
+        ]
+        ])->select([
+          'isbn'=>'book.isbn',
+          'category'=>'category.category',
+          'name'=>'book.name',
+          'author'=>'book.author',
+          'publisher'=>'publisher.publisher',
+          'publish_date'=>'book.publish_date',
+          'book_id'=>'book.id',
+          'arrival_date'=>'bookstates.arrival_date',
+          'delete_date'=>'bookstates.delete_date',
+          'state'=>'bookstates.state',
+
+          ])->toArray();
+        }else {
+          $data = $this->Bookstates->find()->join([
+            'book' => [
+            'table' => 'Books',
+            'type' => 'INNER',
+            'conditions' => 'book.id = Bookstates.book_id',
+        ],
+        'publisher' => [
+            'table' => 'Publishers',
+            'type' => 'INNER',
+            'conditions' => 'publisher.id = book.publisher_id',
+        ],
+        'category' => [
+            'table' => 'Categories',
+            'type' => 'INNER',
+            'conditions' => 'category.id = book.category_id',
+        ]
+        ])->select([
+          'isbn'=>'book.isbn',
+          'category'=>'category.category',
+          'name'=>'book.name',
+          'author'=>'book.author',
+          'publisher'=>'publisher.publisher',
+          'publish_date'=>'book.publish_date',
+          'book_id'=>'book.id',
+          'arrival_date'=>'bookstates.arrival_date',
+          'delete_date'=>'bookstates.delete_date',
+          'state'=>'bookstates.state',
+
+          ])->toArray();
+        }
+        $this->set('bookstates',$data);*/
+
+
           $condition = ['conditions'=>['name'=>$find]];
           $bookstates = $this->Bookstates->find('all',$condition)->contain(['Books' => ["Publishers","Categories"],'Books'])->toArray();
           $count[] = $this->Bookstates->find('all',$condition)->contain('Books')->count();
