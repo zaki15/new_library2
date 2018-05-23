@@ -15,6 +15,7 @@
 </div>
 
 <div id="right_center">
+  <?php var_dump($count); ?>
   <h3><?= __('Rentals') ?></h3>
 
   <table id="test_table" border="1">
@@ -167,7 +168,7 @@
 
 <?=$this->Form->create(null,['type'=>'post','url'=>["controller"=>"Rentals", "action" => "search"]]) ?>
 <?=$this->Form->submit('資料検索画面へ')?>
+<!--もし延滞、貸出超過があった場合は押せない仕様にする。-->
 <?=$this->Form->end()?>
-
 
 </div>

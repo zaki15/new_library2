@@ -72,7 +72,7 @@ class RentalsTable extends Table
         $validator
             ->dateTime('return_date')
             ->requirePresence('return_date', 'create')
-            ->notEmpty('return_date');
+            ->allowEmpty('return_date');
 
         $validator
             ->integer('pressing_letter')
