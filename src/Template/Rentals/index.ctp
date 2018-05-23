@@ -15,6 +15,7 @@
 </div>
 
 <div id="right_center">
+  <?php var_dump($count); ?>
   <h3><?= __('Rentals') ?></h3>
 
   <table id="test_table" border="1">
