@@ -124,11 +124,31 @@ class BookstatesController extends AppController
         if ($this->request->isPost()){
           $find = $this->request->data['Bookstates']['find'];
           $condition = ['conditions'=>['id'=>$find]];
-          $data = $this->Bookstates->find('all')->contain('Books','Publishers','Categories');
+          $bookstates = $this->Bookstates->find('all',$condition)->contain('Books','Publishers','Categories');
+          $books=$this->Books->find('all',$condition)->contain('Publishers');
         }else {
-          $data = $this->Bookstates->find('all')->contain('Books','Publishers','Categories');
+          $bookstates = $this->Bookstates->find()->join([
+        'c' => [
+            'table' => 'Books',
+            'type' => 'INNER',
+            'conditions' => 'c.id = Bookstates.book_id',
+        ],
+        'u' => [
+            'table' => 'Publishers',
+            'type' => 'INNER',
+            'conditions' => 'u.id = c.publisher_id',
+        ]
+        ])->select([
+          'bookstate_id'=>'Bookstates.id',
+          'isbn'=>'c.isbn',
+          'publisher'=>'u.publisher'
+          ])->toArray();
+          //$books=$this->Books->find('all')->contain('Publishers')->toArray();
+          //$books=$this->Books->find('all')->contain('Books','Publishers','Categories');
         }
-        $this->set('bookstates',$data);
+
+        $this->set(compact('bookstates', 'books'));
+
     }
 
 }

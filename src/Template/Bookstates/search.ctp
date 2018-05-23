@@ -11,17 +11,23 @@
 <?= $this->Form->create(null,
 ['type'=>'post',
 'url'=>['controller'=>'Bookstates',
-'action'=>'edit']])?>
+'action'=>'search']])?>
 
-<div><?= $this->Form->text('Bookstates.find') ?></div>
-<div><?= $this->Form->submit('検索') ?></div>
+<div>isbn<?= $this->Form->text('Bookstates.find') ?><?= $this->Form->submit('検索') ?></div>
+
 <div><?= $this->Form->end() ?></div>
 </div>
 
 <div id="right_center">
+  <pre>
   <?php
-var_dump($bookstates);
+var_dump($bookstates[0]);
+var_dump($books[0]);
+//print_r($books);
+
+
    ?>
+ </pre>
 
   <h3><?= __('Bookstates') ?></h3>
 
@@ -42,16 +48,22 @@ var_dump($bookstates);
     <?php foreach ($bookstates as $bookstate): ?>
       <tr>
         <td><?= h($bookstate->book->isbn)  ?></td>
-        <td><?= h($bookstate->category->id)  ?></td>
+        <td><?= h($bookstate->book->category_id)  ?></td>
         <td><?= h($bookstate->book->name) ?></td>
         <td><?= h($bookstate->book->author) ?></td>
-        <td><?= h($bookstate->publisher->publisher) ?></td>
+        <td><?= h($bookstate->publisher->id) ?></td>
         <td><?= h($bookstate->book->publish_date) ?></td>
         <td><?= h($this->Number->format($bookstate->id)) ?></td>
         <td><?= h($bookstate->arrival_date) ?></td>
         <td><?= h($bookstate->delete_date) ?></td>
         <td><?= h($bookstate->state) ?></td>
         <td><?= $this->Form->checkbox('') ?></td>
+
+      </tr>
+    <?php endforeach; ?>
+    <?php foreach ($bookstates->categories as $categorie): ?>
+      <tr>
+        <td><?= h($categorie->category)?></td>
       </tr>
     <?php endforeach; ?>
 
