@@ -123,29 +123,15 @@ class BookstatesController extends AppController
     {
         if ($this->request->isPost()){
           $find = $this->request->data['Bookstates']['find'];
-          $condition = ['conditions'=>['id'=>$find]];
-          $bookstates = $this->Bookstates->find('all',$condition)->contain('Books','Publishers','Categories');
-          $books=$this->Books->find('all',$condition)->contain('Publishers');
+          $condition = ['conditions'=>['name'=>$find]];
+          $bookstates = $this->Bookstates->find('all',$condition)->contain(['Books' => ["Publishers","Categories"],'Books'])->toArray();
+          //$books=$this->Books->find('all',$condition)->contain('Publishers');
         }else {
-          $bookstates = $this->Bookstates->find()->join([
-        'c' => [
-            'table' => 'Books',
-            'type' => 'INNER',
-            'conditions' => 'c.id = Bookstates.book_id',
-        ],
-        'u' => [
-            'table' => 'Publishers',
-            'type' => 'INNER',
-            'conditions' => 'u.id = c.publisher_id',
-        ]
-        ])->select([
-          'bookstate_id'=>'Bookstates.id',
-          'isbn'=>'c.isbn',
-          'publisher'=>'u.publisher'
-          ])->toArray();
+          $bookstates = $this->Bookstates->find('all')->contain(['Books' => ["Publishers","Categories"],'Books'])->toArray();
           //$books=$this->Books->find('all')->contain('Publishers')->toArray();
           //$books=$this->Books->find('all')->contain('Books','Publishers','Categories');
         }
+        $data=$this->paginate($this->Bookstates->find());
 
         $this->set(compact('bookstates', 'books'));
 

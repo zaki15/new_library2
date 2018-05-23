@@ -21,8 +21,8 @@
 <div id="right_center">
   <pre>
   <?php
-var_dump($bookstates[0]);
-var_dump($books[0]);
+//var_dump($bookstates[0]);
+//var_dump($books[0]);
 //print_r($books);
 
 
@@ -33,6 +33,7 @@ var_dump($books[0]);
 
   <table  border='1' id="test_table">
     <tr>
+      <th scope="col"><?= $this->Paginator->sort('bookstate_id') ?></th>
       <th scope="col"><?= $this->Paginator->sort('ISBN番号') ?></th>
       <th scope="col"><?= $this->Paginator->sort('区分') ?></th>
       <th scope="col"><?= $this->Paginator->sort('タイトル') ?></th>
@@ -47,11 +48,12 @@ var_dump($books[0]);
     </tr>
     <?php foreach ($bookstates as $bookstate): ?>
       <tr>
+        <td><?= h($bookstate->id)  ?></td>
         <td><?= h($bookstate->book->isbn)  ?></td>
-        <td><?= h($bookstate->book->category_id)  ?></td>
+        <td><?= h($bookstate->book->category->category)  ?></td>
         <td><?= h($bookstate->book->name) ?></td>
         <td><?= h($bookstate->book->author) ?></td>
-        <td><?= h($bookstate->publisher->id) ?></td>
+        <td><?= h($bookstate->book->publisher->publisher) ?></td>
         <td><?= h($bookstate->book->publish_date) ?></td>
         <td><?= h($this->Number->format($bookstate->id)) ?></td>
         <td><?= h($bookstate->arrival_date) ?></td>
@@ -61,11 +63,7 @@ var_dump($books[0]);
 
       </tr>
     <?php endforeach; ?>
-    <?php foreach ($bookstates->categories as $categorie): ?>
-      <tr>
-        <td><?= h($categorie->category)?></td>
-      </tr>
-    <?php endforeach; ?>
+
 
   </table>
 
