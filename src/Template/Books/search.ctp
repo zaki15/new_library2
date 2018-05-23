@@ -19,7 +19,11 @@
 </div>
 
 <div id="right_center">
-
+<pre>
+<?php
+print_r($books)
+ ?>
+</pre>
 
   <h3><?= __('Books') ?></h3>
 
@@ -47,7 +51,7 @@
         <td><?= $book->has('publisher') ? $book->publisher->publisher : '' ?></td>
         <td><?= h($book->publish_date) ?></td>
         <td><?= h($this->Number->format($book->id)) ?></td>
-        <td><?= $book->has('bookstate') ? $book->bookstate->arrival_date : '' ?></td>
+        <td><?= $book->has('bookstate') ? $book->bookstates->arrival_date : '' ?></td>
         <td><?= $book->has('bookstate') ? $book->bookstate->delete_date : '' ?></td>
         <td><?= $book->has('bookstate') ? $book->bookstate->state : '' ?></td>
         <td><?= $this->Form->checkbox('') ?></td>

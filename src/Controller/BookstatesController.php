@@ -128,15 +128,39 @@ class BookstatesController extends AppController
         if ($this->request->isPost()){
           $find = $this->request->data['Bookstates']['find'];
           $condition = ['conditions'=>['isbn'=>$find]];
-          $data = $this->Bookstates->find('all')->contain('Books');
-          $categories = $this->Bookstates->Books->Categories->find('all');
-          $publishers = $this->Bookstates->Books->Publishers->find('all');
+          $data = $this->Bookstates->find()->join();
         }else {
-          $data = $this->Bookstates->find('all')->contain('Books');
-          $categories = $this->Bookstates->Books->Categories->find('all');
-          $publishers = $this->Bookstates->Books->Publishers->find('all');
+          $data = $this->Bookstates->find()->join([
+            'book' => [
+            'table' => 'Books',
+            'type' => 'INNER',
+            'conditions' => 'book.id = Bookstates.book_id',
+        ],
+        'publisher' => [
+            'table' => 'Publishers',
+            'type' => 'INNER',
+            'conditions' => 'publisher.id = book.publisher_id',
+        ],
+        'category' => [
+            'table' => 'Categories',
+            'type' => 'INNER',
+            'conditions' => 'category.id = book.category_id',
+        ]
+        ])->select([
+          'isbn'=>'book.isbn',
+          'category'=>'category.category',
+          'book'=>'book.name',
+          'book'=>'book.author',
+          'book'=>'publisher.publisher',
+          'book'=>'book.publish_date',
+          'bookstates'=>'bookstates.id',
+          'bookstates'=>'bookstates.arrival_date',
+          'bookstates'=>'bookstates.delete_date',
+          'bookstates'=>'bookstates.state',
+
+          ])->toArray();
         }
-        $this->set('bookstates',$data,$categories,$publishers);
+        $this->set('bookstates',$data);
 
 
     }

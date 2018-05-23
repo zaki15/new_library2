@@ -125,13 +125,13 @@ class BooksController extends AppController
         if ($this->request->isPost()){
           $find = $this->request->data['Books']['find'];
           $condition = ['conditions'=>['id'=>$find]];
-          $data = $this->Books->find('all')->contain('Bookstates');
-          $categories = $this->Books->Categories->find('all');
-          $publishers = $this->Books->Publishers->find('all');
+          $data = $this->Books->find('all')->contain('Bookstates')->toArray();
+          $categories = $this->Books->Categories->find('all')->toArray();
+          $publishers = $this->Books->Publishers->find('all')->toArray();
         }else {
-          $data = $this->Books->find('all')->contain('Books');
-          $categories = $this->Books->Categories->find('all');
-          $publishers = $this->Books->Publishers->find('all');
+          $data = $this->Books->find('all')->contain('Bookstates')->toArray();
+          $categories = $this->Books->Categories->find('all')->toArray();
+          $publishers = $this->Books->Publishers->find('all')->toArray();
         }
         $this->set('books',$data,$categories,$publishers);
 

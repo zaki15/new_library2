@@ -40,7 +40,7 @@ print_r($bookstates);
       <th scope="col"><?= $this->Paginator->sort('蔵書冊数') ?></th>
       <th scope="col"><?= $this->Paginator->sort('変更・削除') ?></th>
     </tr>
-    <?php foreach ($bookstates->toArray() as $bookstate): ?>
+    <?php foreach ($bookstates as $bookstate): ?>
       <tr>
         <td><?= h($bookstate->book->isbn)  ?></td>
         <td><?= $bookstate->has('category') ? $bookstate->category->id : ''  ?></td>
