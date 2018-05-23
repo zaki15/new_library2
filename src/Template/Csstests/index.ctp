@@ -9,7 +9,7 @@
 <div id="right_top">
   <h1>CSSテスト画面です(h1)</h1>
   controll:<?=$this->Form->controll('検索',['type'=>'test'])?><br>
-  text:<?=$this->Form->text('検索')?><?=$this->Form->submit('検索')?>
+  text:<?=$this->Form->text('検索')?><?=$this->Form->button('検索',['type'=>'submit'])?>
   ragio:<?=$this->Form->radio('favorite_color',
   [
     ['value' => 'r', 'text' => 'Red', 'style' => 'color:red;'],
