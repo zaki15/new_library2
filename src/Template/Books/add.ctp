@@ -28,7 +28,7 @@
 <div id="right_center">
 
     <?= $this->Form->create($book) ?>
-    
+
     <fieldset>
         <legend><?= __('Add Book') ?></legend>
         <?php
@@ -38,10 +38,10 @@
             echo '<tr><td>タイトル</td><td>'.$this->Form->control('name').'</td></tr>';
             echo '<tr><td>著者名</td><td>'.$this->Form->control('author').'</td></tr>';
             echo '<tr><td>出版日</td><td>'.$this->Form->control('publish_date').'</td></tr>';
-            echo '<tr><td>資料ID</td><td>'.$this->Form->hidden('bookstate_id',['label'=>'']).'</td></tr>';
-            echo '<tr><td>入荷年月日</td><td>'.$this->Form->control('arrival_date',['label'=>'']).'</td></tr>';
-            echo '<tr><td>廃棄年月日</td><td>'.$this->Form->control('delete_date',['label'=>'']).'</td></tr>';
-            echo '<tr><td>蔵書冊数</td><td>'.$this->Form->control('state',['label'=>'']).'</td></tr>';
+            echo '<tr><td>資料ID</td><td>'.$this->Form->hidden('bookstate_id',['options' => $bookstates]).'</td></tr>';
+            echo '<tr><td>入荷年月日</td><td>'.$this->Form->control('arrival_date',['options' => $bookstates]).'</td></tr>';
+            echo '<tr><td>廃棄年月日</td><td>'.$this->Form->control('delete_date',['options' => $bookstates]).'</td></tr>';
+            echo '<tr><td>蔵書冊数</td><td>'.$this->Form->control('state',['options' => $bookstates]).'</td></tr>';
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

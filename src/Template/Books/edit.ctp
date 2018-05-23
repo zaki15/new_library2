@@ -29,12 +29,16 @@
     <fieldset>
         <legend><?= __('Edit Book') ?></legend>
         <?php
-            echo $this->Form->control('category_id', ['options' => $categories]);
-            echo $this->Form->control('publisher_id', ['options' => $publishers]);
-            echo $this->Form->control('isbn');
-            echo $this->Form->control('name');
-            echo $this->Form->control('author');
-            echo $this->Form->control('publish_date');
+        echo '<tr><td>区分</td><td>'.$this->Form->control('category_id', ['options' => $categories]).'</td></tr>';
+        echo '<tr><td>出版社名</td><td>'.$this->Form->control('publisher_id', ['options' => $publishers]).'</td></tr>';
+        echo '<tr><td>ISBN番号</td><td>'.$this->Form->control('isbn').'</td></tr>';
+        echo '<tr><td>タイトル</td><td>'.$this->Form->control('name').'</td></tr>';
+        echo '<tr><td>著者名</td><td>'.$this->Form->control('author').'</td></tr>';
+        echo '<tr><td>出版日</td><td>'.$this->Form->control('publish_date').'</td></tr>';
+        echo '<tr><td>資料ID</td><td>'.$this->Form->hidden('bookstate_id',['options' => $bookstates]).'</td></tr>';
+        echo '<tr><td>入荷年月日</td><td>'.$this->Form->control('arrival_date',['options' => $bookstates]).'</td></tr>';
+        echo '<tr><td>廃棄年月日</td><td>'.$this->Form->control('delete_date',['options' => $bookstates]).'</td></tr>';
+        echo '<tr><td>蔵書冊数</td><td>'.$this->Form->control('state',['options' => $bookstates]).'</td></tr>';
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

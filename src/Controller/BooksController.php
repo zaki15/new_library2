@@ -62,16 +62,17 @@ class BooksController extends AppController
         $book = $this->Books->newEntity();
         if ($this->request->is('post')) {
             $book = $this->Books->patchEntity($book, $this->request->getData());
-            if ($this->Books->save($book)) {
-                $this->Flash->success(__('The book has been saved.'));
+            if ($this->Books->saveAll($book)) {
+                $this->Flash->success(__('The book has been saveAlld.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The book could not be saved. Please, try again.'));
+            $this->Flash->error(__('The book could not be saveAlld. Please, try again.'));
         }
         $categories = $this->Books->Categories->find('list', ['limit' => 200]);
         $publishers = $this->Books->Publishers->find('list', ['limit' => 200]);
-        $this->set(compact('book', 'categories', 'publishers'));
+        $bookstates = $this->Books->Bookstates->find('list', ['limit' => 200]);
+        $this->set(compact('book', 'categories', 'publishers','bookstates'));
     }
 
     /**
@@ -88,12 +89,12 @@ class BooksController extends AppController
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $book = $this->Books->patchEntity($book, $this->request->getData());
-            if ($this->Books->save($book)) {
-                $this->Flash->success(__('The book has been saved.'));
+            if ($this->Books->saveAll($book)) {
+                $this->Flash->success(__('The book has been saveAlld.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The book could not be saved. Please, try again.'));
+            $this->Flash->error(__('The book could not be saveAlld. Please, try again.'));
         }
         $categories = $this->Books->Categories->find('list', ['limit' => 200]);
         $publishers = $this->Books->Publishers->find('list', ['limit' => 200]);
@@ -124,11 +125,15 @@ class BooksController extends AppController
         if ($this->request->isPost()){
           $find = $this->request->data['Books']['find'];
           $condition = ['conditions'=>['id'=>$find]];
-          $data = $this->Books->find('all')->contain('Bookstates','Categories','Publishers');
+          $data = $this->Books->find('all')->contain('Bookstates');
+          $categories = $this->Books->Categories->find('all');
+          $publishers = $this->Books->Publishers->find('all');
         }else {
-          $data = $this->Books->find('all')->contain('Bookstates','Categories','Publishers');
+          $data = $this->Books->find('all')->contain('Books');
+          $categories = $this->Books->Categories->find('all');
+          $publishers = $this->Books->Publishers->find('all');
         }
-        $this->set('books',$data);
+        $this->set('books',$data,$categories,$publishers);
 
 
     }

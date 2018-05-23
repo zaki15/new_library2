@@ -63,7 +63,7 @@ class BookstatesController extends AppController
         $bookstate = $this->Bookstates->newEntity();
         if ($this->request->isPost()) {
             $bookstate = $this->Bookstates->patchEntity($bookstate, $this->request->getData());
-            if ($this->Bookstates->save($bookstate)) {
+            if ($this->Bookstates->saveAll($bookstate)) {
                 $this->Flash->success(__('The bookstate has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
@@ -71,7 +71,9 @@ class BookstatesController extends AppController
             $this->Flash->error(__('The bookstate could not be saved. Please, try again.'));
         }
         $books = $this->Bookstates->Books->find('list', ['limit' => 200]);
-        $this->set(compact('bookstate', 'books'));
+        $categories = $this->Books->Categories->find('list', ['limit' => 200]);
+        $publishers = $this->Books->Publishers->find('list', ['limit' => 200]);
+        $this->set(compact('bookstate', 'books', 'categories', 'publishers'));
     }
 
     /**
@@ -88,7 +90,7 @@ class BookstatesController extends AppController
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $bookstate = $this->Bookstates->patchEntity($bookstate, $this->request->getData());
-            if ($this->Bookstates->save($bookstate)) {
+            if ($this->Bookstates->saveAll($bookstate)) {
                 $this->Flash->success(__('The bookstate has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
@@ -96,7 +98,9 @@ class BookstatesController extends AppController
             $this->Flash->error(__('The bookstate could not be saved. Please, try again.'));
         }
         $books = $this->Bookstates->Books->find('list', ['limit' => 200]);
-        $this->set(compact('bookstate', 'books'));
+        $categories = $this->Books->Categories->find('list', ['limit' => 200]);
+        $publishers = $this->Books->Publishers->find('list', ['limit' => 200]);
+        $this->set(compact('bookstate', 'books', 'categories', 'publishers'));
     }
 
     /**
@@ -125,10 +129,14 @@ class BookstatesController extends AppController
           $find = $this->request->data['Bookstates']['find'];
           $condition = ['conditions'=>['isbn'=>$find]];
           $data = $this->Bookstates->find('all')->contain('Books');
+          $categories = $this->Bookstates->Books->Categories->find('all');
+          $publishers = $this->Bookstates->Books->Publishers->find('all');
         }else {
           $data = $this->Bookstates->find('all')->contain('Books');
+          $categories = $this->Bookstates->Books->Categories->find('all');
+          $publishers = $this->Bookstates->Books->Publishers->find('all');
         }
-        $this->set('bookstates',$data);
+        $this->set('bookstates',$data,$categories,$publishers);
 
 
     }
