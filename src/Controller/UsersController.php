@@ -11,6 +11,7 @@ use Cake\Event\Event;
  *
  * @method \App\Model\Entity\User[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
+
 class UsersController extends AppController
 {
 
@@ -51,10 +52,6 @@ class UsersController extends AppController
     public function search()
     {
         if($this->request->is('post')){
-
-
-
-
 
           $query = $this->request->data['Users']['query'];
           $condition = ['conditions'=>['id'=>$query]];

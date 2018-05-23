@@ -12,9 +12,9 @@ class RentalsController extends AppController
 {
   public function initialize(){
     $this->viewBuilder()->setLayout('main');
-
     $this->loadModel('Users');
   }
+
     /**
      * Index method
      *
@@ -22,7 +22,6 @@ class RentalsController extends AppController
      */
     public function index()
     {
-
 
       if($this->request->is('post')){
 
@@ -97,21 +96,26 @@ class RentalsController extends AppController
         $reservations = $this->Rentals->Reservations->find('list', ['limit' => 200]);
         $this->set(compact('rental', 'bookstates', 'users', 'reservations'));
     }
+r
     public function search(){
     //下のコード何？
       $this->paginate = [
           'contain' => ['Bookstates', 'Users', 'Reservations']
       ];
       $rentals = $this->paginate($this->Rentals);
+
       $this->set(compact('rentals'));
     }
+
     public function returncheck(){
       $this->paginate = [
           'contain' => ['Bookstates', 'Users', 'Reservations']
       ];
       $rentals = $this->paginate($this->Rentals);
+
       $this->set(compact('rentals'));
     }
+
     /**
      * Edit method
      *
@@ -155,4 +159,5 @@ class RentalsController extends AppController
         }
         return $this->redirect(['action' => 'index']);
     }
+
 }
