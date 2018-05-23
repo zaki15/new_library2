@@ -167,7 +167,7 @@
 
 <?=$this->Form->create(null,['type'=>'post','url'=>["controller"=>"Rentals", "action" => "search"]]) ?>
 <?=$this->Form->submit('資料検索画面へ')?>
+<!--もし延滞、貸出超過があった場合は押せない仕様にする。-->
 <?=$this->Form->end()?>
-
 
 </div>
