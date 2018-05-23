@@ -22,7 +22,7 @@
   <pre>
   <?php
 //var_dump($bookstates[0]);
-//var_dump($books[0]);
+var_dump($count);
 //print_r($books);
 
 
@@ -46,6 +46,7 @@
       <th scope="col"><?= $this->Paginator->sort('蔵書冊数') ?></th>
       <th scope="col"><?= $this->Paginator->sort('変更・削除') ?></th>
     </tr>
+    <?php $i=0;?>
     <?php foreach ($bookstates as $bookstate): ?>
       <tr>
         <td><?= h($bookstate->id)  ?></td>
@@ -55,13 +56,14 @@
         <td><?= h($bookstate->book->author) ?></td>
         <td><?= h($bookstate->book->publisher->publisher) ?></td>
         <td><?= h($bookstate->book->publish_date) ?></td>
-        <td><?= h($this->Number->format($bookstate->id)) ?></td>
+        <td><?= h($this->Number->format($bookstate->book->id)) ?></td>
         <td><?= h($bookstate->arrival_date) ?></td>
         <td><?= h($bookstate->delete_date) ?></td>
-        <td><?= h($bookstate->state) ?></td>
+        <td><?= h($count[$i]) ?></td>
         <td><?= $this->Form->checkbox('') ?></td>
 
       </tr>
+      <?php $i++;?>
     <?php endforeach; ?>
 
 

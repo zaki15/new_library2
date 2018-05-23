@@ -61,9 +61,17 @@ class BookstatesController extends AppController
     public function add()
     {
         $bookstate = $this->Bookstates->newEntity();
+        $book = $this->Books->newEntity();
         if ($this->request->isPost()) {
-            $bookstate = $this->Bookstates->patchEntity($bookstate, $this->request->getData());
-            if ($this->Bookstates->save($bookstate)) {
+            $book_id=$this->request->data['']['book_id'];//post
+
+            $bookstate_entity=['book_id'=>$book_id,'arrival_date'=>$arr_date];
+
+            $bookstate = $this->Bookstates->newEntity($bookstate_entity);
+            $book = $this->Books->newEntity();
+            //$bookstate = $this->Bookstates->patchEntity($bookstate, $this->request->getData());
+            //$book = $this->Books->patchEntity($bookstate, $this->request->getData());
+            if ($this->Bookstates->save($bookstate)&&$this->Books->save($books)) {
                 $this->Flash->success(__('The bookstate has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
@@ -125,15 +133,22 @@ class BookstatesController extends AppController
           $find = $this->request->data['Bookstates']['find'];
           $condition = ['conditions'=>['name'=>$find]];
           $bookstates = $this->Bookstates->find('all',$condition)->contain(['Books' => ["Publishers","Categories"],'Books'])->toArray();
+          $count[] = $this->Bookstates->find('all',$condition)->contain('Books')->count();
           //$books=$this->Books->find('all',$condition)->contain('Publishers');
         }else {
           $bookstates = $this->Bookstates->find('all')->contain(['Books' => ["Publishers","Categories"],'Books'])->toArray();
+
+          foreach ($bookstates as $bookstate) {
+            $condition = ['conditions'=>['book_id'=>$bookstate->book_id]];
+            $count[] = $this->Bookstates->find('all',$condition)->contain('Books')->count();
+          }
+          //$count = $this->Bookstates->find('all')->contain('Books')->count();
           //$books=$this->Books->find('all')->contain('Publishers')->toArray();
           //$books=$this->Books->find('all')->contain('Books','Publishers','Categories');
         }
         $data=$this->paginate($this->Bookstates->find());
 
-        $this->set(compact('bookstates', 'books'));
+        $this->set(compact('bookstates', 'books','count'));
 
     }
 
