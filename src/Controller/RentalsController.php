@@ -36,7 +36,10 @@ class RentalsController extends AppController
         //$data = $this->Rentals->find('all')->contain('Users');
       }
 
+      //if(return_date)
     }
+
+
     public function test(){
       if($this->request->is('post')){
 
