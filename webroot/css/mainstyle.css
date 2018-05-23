@@ -67,7 +67,7 @@ body {
 
 }
 
-#test_table{
+.test_table{
   margin: auto;
 }
 
@@ -185,6 +185,7 @@ body {
 
 table{
   width: 500px;
+  margin: auto;
 }
 
 div.message {//styleより追加

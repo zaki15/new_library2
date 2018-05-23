@@ -1,8 +1,6 @@
 <?php
 namespace App\Controller;
-
 use App\Controller\AppController;
-
 /**
  * Rentals Controller
  *
@@ -12,10 +10,9 @@ use App\Controller\AppController;
  */
 class RentalsController extends AppController
 {
-
   public function initialize(){
     $this->viewBuilder()->setLayout('main');
-
+    $this->loadModel('Users');
   }
 
     /**
@@ -25,15 +22,45 @@ class RentalsController extends AppController
      */
     public function index()
     {
-        $this->paginate = [
-            'contain' => ['Bookstates', 'Users', 'Reservations']
-        ];
-        $rentals = $this->paginate($this->Rentals);
 
-        $this->set(compact('users'));
+      if($this->request->is('post')){
+
+        $query = $this->request->data['Rentals']['find'];
+        $condition = ['conditions'=>['Users.id'=>$query],'contain'=>['Users']];
+        $rentals = $this->Rentals->find('all',$condition);
+        //$users = $this->paginate($this->Users);
+        $this->set(compact('rentals','users'));
+        //echo "<pre>".print_r($this->set(compact('rentals')))."</pre>";
+      }else{
+        //$condition = ['contain' => ['Bookstates', 'Users', 'Reservations']];
+        //$data = $this->Rentals->find('all')->contain('Users');
+      }
 
     }
+    public function test(){
+      if($this->request->is('post')){
 
+        $query = $this->request->data['Rentals']['find'];
+
+        $user = $this->Users->get($query, [
+            'contain' => ['Rentals', 'Reservations']
+        ]);/*
+        $user = $this->Users->find('all', [
+            'conditions'=>['Users.id'=>$query],
+            'contain' => ['Rentals', 'Reservations']
+        ]);*/
+        $this->set('user', $user);
+
+
+      }else{
+        $this->set('user', $user);
+        //$condition = ['contain' => ['Bookstates', 'Users', 'Reservations']];
+        //$data = $this->Rentals->find('all')->contain('Users');
+      }
+
+
+
+    }
     /**
      * View method
      *
@@ -46,10 +73,8 @@ class RentalsController extends AppController
         $rental = $this->Rentals->get($id, [
             'contain' => ['Bookstates', 'Users', 'Reservations']
         ]);
-
         $this->set('rental', $rental);
     }
-
     /**
      * Add method
      *
@@ -62,7 +87,6 @@ class RentalsController extends AppController
             $rental = $this->Rentals->patchEntity($rental, $this->request->getData());
             if ($this->Rentals->save($rental)) {
                 $this->Flash->success(__('貸出が完了しました。'));
-
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('貸出に失敗しました。入力し直して下さい。'));
@@ -72,7 +96,7 @@ class RentalsController extends AppController
         $reservations = $this->Rentals->Reservations->find('list', ['limit' => 200]);
         $this->set(compact('rental', 'bookstates', 'users', 'reservations'));
     }
-
+r
     public function search(){
     //下のコード何？
       $this->paginate = [
@@ -81,7 +105,6 @@ class RentalsController extends AppController
       $rentals = $this->paginate($this->Rentals);
 
       $this->set(compact('rentals'));
-
     }
 
     public function returncheck(){
@@ -91,7 +114,6 @@ class RentalsController extends AppController
       $rentals = $this->paginate($this->Rentals);
 
       $this->set(compact('rentals'));
-
     }
 
     /**
@@ -110,7 +132,6 @@ class RentalsController extends AppController
             $rental = $this->Rentals->patchEntity($rental, $this->request->getData());
             if ($this->Rentals->save($rental)) {
                 $this->Flash->success(__('The rental has been saved.'));
-
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The rental could not be saved. Please, try again.'));
@@ -120,7 +141,6 @@ class RentalsController extends AppController
         $reservations = $this->Rentals->Reservations->find('list', ['limit' => 200]);
         $this->set(compact('rental', 'bookstates', 'users', 'reservations'));
     }
-
     /**
      * Delete method
      *
@@ -137,7 +157,6 @@ class RentalsController extends AppController
         } else {
             $this->Flash->error(__('The rental could not be deleted. Please, try again.'));
         }
-
         return $this->redirect(['action' => 'index']);
     }
 

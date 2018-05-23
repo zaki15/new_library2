@@ -18,6 +18,12 @@ class ReservationsController extends AppController
      *
      * @return \Cake\Http\Response|void
      */
+    public function initialize(){
+       $this->viewBuilder()->setLayout('main');
+     }
+
+    public $components = array('Paginator', 'Flash');
+
     public function index()
     {
         $this->paginate = [
@@ -55,11 +61,11 @@ class ReservationsController extends AppController
         if ($this->request->is('post')) {
             $reservation = $this->Reservations->patchEntity($reservation, $this->request->getData());
             if ($this->Reservations->save($reservation)) {
-                $this->Flash->success(__('The reservation has been saved.'));
+                $this->Flash->success(__('予約台帳に予約情報を記録しました。'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The reservation could not be saved. Please, try again.'));
+            $this->Flash->error(__('予約に失敗しました。もう一度お試しください。'));
         }
         $users = $this->Reservations->Users->find('list', ['limit' => 200]);
         $bookstates = $this->Reservations->Bookstates->find('list', ['limit' => 200]);
@@ -82,11 +88,11 @@ class ReservationsController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $reservation = $this->Reservations->patchEntity($reservation, $this->request->getData());
             if ($this->Reservations->save($reservation)) {
-                $this->Flash->success(__('The reservation has been saved.'));
+                $this->Flash->success(__('予約情報は正常に変更されました。'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The reservation could not be saved. Please, try again.'));
+            $this->Flash->error(__('予約情報の変更に失敗しました。もう一度お試しください。'));
         }
         $users = $this->Reservations->Users->find('list', ['limit' => 200]);
         $bookstates = $this->Reservations->Bookstates->find('list', ['limit' => 200]);
@@ -106,9 +112,9 @@ class ReservationsController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $reservation = $this->Reservations->get($id);
         if ($this->Reservations->delete($reservation)) {
-            $this->Flash->success(__('The reservation has been deleted.'));
+            $this->Flash->success(__('予約は正常に削除されました。'));
         } else {
-            $this->Flash->error(__('The reservation could not be deleted. Please, try again.'));
+            $this->Flash->error(__('削除に失敗しました。もう一度お試しください。'));
         }
 
         return $this->redirect(['action' => 'index']);
