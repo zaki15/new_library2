@@ -19,11 +19,7 @@
 </div>
 
 <div id="right_center">
-<pre>
-<?php
-print_r($bookstates);
- ?>
- </pre>
+
   <h3><?= __('Bookstates') ?></h3>
 
   <table  border='1' id="test_table">
@@ -42,13 +38,13 @@ print_r($bookstates);
     </tr>
     <?php foreach ($bookstates as $bookstate): ?>
       <tr>
-        <td><?= h($bookstate->book->isbn)  ?></td>
-        <td><?= $bookstate->has('category') ? $bookstate->category->id : ''  ?></td>
-        <td><?= h($bookstate->book->name) ?></td>
-        <td><?= h($bookstate->book->author) ?></td>
-        <td><?= $bookstate->book->publisher ?></td>
-        <td><?= h($bookstate->book->publish_date) ?></td>
-        <td><?= h($this->Number->format($bookstate->id)) ?></td>
+        <td><?= h($bookstate->isbn)  ?></td>
+        <td><?= h($bookstate->category) ?></td>
+        <td><?= h($bookstate->name) ?></td>
+        <td><?= h($bookstate->author) ?></td>
+        <td><?= h($bookstate->publisher) ?></td>
+        <td><?= h($bookstate->publish_date) ?></td>
+        <td><?= h($bookstate->bookstates_id) ?></td>
         <td><?= h($bookstate->arrival_date) ?></td>
         <td><?= h($bookstate->delete_date) ?></td>
         <td><?= h($bookstate->state) ?></td>

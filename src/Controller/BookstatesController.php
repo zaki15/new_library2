@@ -127,8 +127,36 @@ class BookstatesController extends AppController
     {
         if ($this->request->isPost()){
           $find = $this->request->data['Bookstates']['find'];
-          $condition = ['conditions'=>['isbn'=>$find]];
-          $data = $this->Bookstates->find()->join();
+          $condition = ['conditions'=> ['or'=>['name like'=>$find,'isbn like'=>$find]]];
+          $data = $this->Bookstates->find('all',$condition)->join([
+            'book' => [
+            'table' => 'Books',
+            'type' => 'INNER',
+            'conditions' => 'book.id = Bookstates.book_id',
+        ],
+        'publisher' => [
+            'table' => 'Publishers',
+            'type' => 'INNER',
+            'conditions' => 'publisher.id = book.publisher_id',
+        ],
+        'category' => [
+            'table' => 'Categories',
+            'type' => 'INNER',
+            'conditions' => 'category.id = book.category_id',
+        ]
+        ])->select([
+          'isbn'=>'book.isbn',
+          'category'=>'category.category',
+          'name'=>'book.name',
+          'author'=>'book.author',
+          'publisher'=>'publisher.publisher',
+          'publish_date'=>'book.publish_date',
+          'bookstates_id'=>'bookstates.id',
+          'arrival_date'=>'bookstates.arrival_date',
+          'delete_date'=>'bookstates.delete_date',
+          'state'=>'bookstates.state',
+
+          ])->toArray();
         }else {
           $data = $this->Bookstates->find()->join([
             'book' => [
@@ -149,14 +177,14 @@ class BookstatesController extends AppController
         ])->select([
           'isbn'=>'book.isbn',
           'category'=>'category.category',
-          'book'=>'book.name',
-          'book'=>'book.author',
-          'book'=>'publisher.publisher',
-          'book'=>'book.publish_date',
-          'bookstates'=>'bookstates.id',
-          'bookstates'=>'bookstates.arrival_date',
-          'bookstates'=>'bookstates.delete_date',
-          'bookstates'=>'bookstates.state',
+          'name'=>'book.name',
+          'author'=>'book.author',
+          'publisher'=>'publisher.publisher',
+          'publish_date'=>'book.publish_date',
+          'bookstates_id'=>'bookstates.id',
+          'arrival_date'=>'bookstates.arrival_date',
+          'delete_date'=>'bookstates.delete_date',
+          'state'=>'bookstates.state',
 
           ])->toArray();
         }
