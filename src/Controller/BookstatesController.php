@@ -234,7 +234,7 @@ class BookstatesController extends AppController
         }
         $data=$this->paginate($this->Bookstates->find());
 
-        $this->set(compact('bookstates', 'books','count'));
+        $this->set(compact('bookstates', 'count'));
 
     }
 

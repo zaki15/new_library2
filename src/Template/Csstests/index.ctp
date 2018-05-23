@@ -2,7 +2,7 @@
 /**
 * @var \App\View\AppView $this
 * @var \App\Model\Entity\User[]|\Cake\Collection\CollectionInterface $users
-* @var ここ読んで　https://book.cakephp.org/3.0/ja/views/helpers/form.html 
+* @var ここ読んで　https://book.cakephp.org/3.0/ja/views/helpers/form.html
 */
 ?>
 
@@ -16,9 +16,9 @@
     ['value' => 'u', 'text' => 'Blue', 'style' => 'color:blue;'],
     ['value' => 'g', 'text' => 'Green', 'style' => 'color:green;'],
     ])?>
-    　checkbox1 <?=$this->Form->checkbox('done',['value' => 555])?>
-    checkbox2<?=$this->Form->checkbox('done',['value' => 555])?>
-    checkbox3<?=$this->Form->checkbox('done',['value' => 555])?><br>
+    　checkbox1 <?=$this->Form->checkbox('done[]',['value' => 555])?>
+    checkbox2<?=$this->Form->checkbox('done[]',['value' => 555])?>
+    checkbox3<?=$this->Form->checkbox('done[]',['value' => 555])?><br>
     select:<?=$this->Form->select('field', [
       'Value 1' => 'Label 1',
       'Value 2' => 'Label 2',
