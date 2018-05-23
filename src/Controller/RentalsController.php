@@ -103,7 +103,7 @@ public function add()
       $this->Flash->success(__('貸出が完了しました。'));
       return $this->redirect(['action' => 'index']);
     }
-    $this->Flash->error(__('貸出に失敗しました。入力し直して下さい。'));
+    $this->Flash->error(__('貸出に失敗しました。始めからやり直して下さい。'));
   }
   $bookstates = $this->Rentals->Bookstates->find('list', ['limit' => 200]);
   $users = $this->Rentals->Users->find('list', ['limit' => 200]);
@@ -122,12 +122,21 @@ public function search(){
 }
 
 public function returncheck(){
-  $this->paginate = [
-    'contain' => ['Bookstates', 'Users', 'Reservations']
-  ];
-  $rentals = $this->paginate($this->Rentals);
 
-  $this->set(compact('rentals'));
+  if($this->request->is('post')){
+
+    $query = $this->request->data['Rentals']['find'];
+    $condition = ['conditions'=>['Users.id'=>$query],'contain'=>['Users']];
+    $rentals = $this->Rentals->find('all',$condition);
+    //$users = $this->paginate($this->Users);
+    $this->set(compact('rentals','users'));
+    //echo "<pre>".print_r($this->set(compact('rentals')))."</pre>";
+
+
+  }else{
+    //$condition = ['contain' => ['Bookstates', 'Users', 'Reservations']];
+    //$data = $this->Rentals->find('all')->contain('Users');
+  }
 }
 
 /**
