@@ -60,10 +60,18 @@ class BookstatesController extends AppController
      */
     public function add()
     {
+
         $bookstate = $this->Bookstates->newEntity();
+        $books = $this->Books->newEntity();
         if ($this->request->isPost()) {
+
+            $book_id = $this->requestdata[''][''];
+            $bookstate_entity =['book_id'=>$book_id,'arrival_date'=>$arr_date];
+
             $bookstate = $this->Bookstates->patchEntity($bookstate, $this->request->getData());
-            if ($this->Bookstates->saveAll($bookstate)) {
+            $book = $this->Books->patchEntity($books, $this->request->getData());
+
+            if ($this->Bookstates->save($bookstate) && $this->Books->save($books)) {
                 $this->Flash->success(__('The bookstate has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
