@@ -63,7 +63,7 @@ class BookstatesController extends AppController
 
         $bookstate = $this->Bookstates->newEntity();
 
-  //@okabe l66~76
+  /* @okabe l66~76*/
         /*$books = $this->Books->newEntity();
         if ($this->request->isPost()) {
 
