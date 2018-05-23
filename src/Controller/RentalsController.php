@@ -56,6 +56,7 @@ class RentalsController extends AppController
 
       $query = $this->request->data['Rentals']['find'];
 
+
       $user = $this->Users->get($query, [
         'contain' => ['Rentals', 'Reservations']
       ]);/*
@@ -64,7 +65,6 @@ class RentalsController extends AppController
       'contain' => ['Rentals', 'Reservations']
     ]);*/
     $this->set('user', $user);
-
 
   }else{
     $this->set('user', $user);
