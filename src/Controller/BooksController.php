@@ -119,5 +119,18 @@ class BooksController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+    public function search()
+    {
+        if ($this->request->isPost()){
+          $find = $this->request->data['Books']['find'];
+          $condition = ['conditions'=>['id'=>$find]];
+          $data = $this->Books->find('all')->contain('Bookstates','Categories','Publishers');
+        }else {
+          $data = $this->Books->find('all')->contain('Bookstates','Categories','Publishers');
+        }
+        $this->set('books',$data);
+
+
+    }
 
 }

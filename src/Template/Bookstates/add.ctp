@@ -17,12 +17,12 @@
   <table border="1">
     <?php
         echo '<tr><td>ISBN番号</td><td>'.$this->Form->control('isbn',['label'=>'']).'</td></tr>';
-        echo '<tr><td>区分</td><td>'.$this->Form->control('category_id',['label'=>'']).'</td></tr>';
+        echo '<tr><td>区分</td><td>'.$this->Form->select('field', [0,1, 2, 3, 4, 5,6,7,8,9]).'</td></tr>';
         echo '<tr><td>タイトル</td><td>'.$this->Form->control('name',['label'=>'']).'</td></tr>';
         echo '<tr><td>著者名</td><td>'.$this->Form->control('author',['label'=>'']).'</td></tr>';
         echo '<tr><td>出版社名</td><td>'.$this->Form->control('publisher',['label'=>'']).'</td></tr>';
         echo '<tr><td>出版日</td><td>'.$this->Form->control('publish_date',['label'=>'']).'</td></tr>';
-        echo '<tr><td>資料ID</td><td>'.$this->Form->control('books_id',['label'=>'']).'</td></tr>';
+        echo '<tr><td>資料ID</td><td>'.$this->Form->hidden('bookstate_id',['label'=>'']).'</td></tr>';
         echo '<tr><td>入荷年月日</td><td>'.$this->Form->control('arrival_date',['label'=>'']).'</td></tr>';
         echo '<tr><td>廃棄年月日</td><td>'.$this->Form->control('delete_date',['label'=>'']).'</td></tr>';
         echo '<tr><td>蔵書冊数</td><td>'.$this->Form->control('state',['label'=>'']).'</td></tr>';

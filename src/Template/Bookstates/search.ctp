@@ -11,7 +11,7 @@
 <?= $this->Form->create(null,
 ['type'=>'post',
 'url'=>['controller'=>'Bookstates',
-'action'=>'edit']])?>
+'action'=>'search']])?>
 
 <div><?= $this->Form->text('Bookstates.find') ?></div>
 <div><?= $this->Form->submit('検索') ?></div>
@@ -71,6 +71,10 @@ print_r($bookstates);
   </div>
 </div>
 <div id="right_under">
+  <?= $this->Form->create(null,
+  ['type'=>'post',
+  'url'=>['controller'=>'Bookstates',
+  'action'=>'edit']])?>
   <?= $this->Form->button(__('変更・削除画面へ'),['class'=>'under_button']) ?>
   <?= $this->Form->end() ?>
 </div>

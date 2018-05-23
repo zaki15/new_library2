@@ -41,7 +41,7 @@
     <?php foreach ($books as $book): ?>
       <tr>
         <td><?= h($book->isbn)  ?></td>
-        <td><?= h($book->category->id)  ?></td>
+        <td><?= $book->has('category') ? $book->category->id : ?></td>
         <td><?= h($book->name) ?></td>
         <td><?= h($book->author) ?></td>
         <td><?= h($book->publisher->publisher) ?></td>
@@ -50,11 +50,7 @@
         <td><?= h($book->bookstate->arrival_date) ?></td>
         <td><?= h($book->bookstate->delete_date) ?></td>
         <td><?= h($book->bookstate->state) ?></td>
-        <td class="actions">
-          <?= $this->Html->link(__('View'), ['action' => 'view', $book->id]) ?>
-          <?= $this->Html->link(__('Edit'), ['action' => 'edit', $book->id]) ?>
-          <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $book->id], ['confirm' => __('Are you sure you want to delete # {0}?', $book->id)]) ?>
-        </td>
+        <td><?= $this->Form->checkbox('') ?></td>
       </tr>
     <?php endforeach; ?>
 

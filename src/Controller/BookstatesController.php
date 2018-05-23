@@ -84,7 +84,7 @@ class BookstatesController extends AppController
     public function edit($id = null)
     {
         $bookstate = $this->Bookstates->get($id, [
-            'contain' => []
+            'contain' => ['Books']
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $bookstate = $this->Bookstates->patchEntity($bookstate, $this->request->getData());
