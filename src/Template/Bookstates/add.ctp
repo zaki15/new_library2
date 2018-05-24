@@ -11,12 +11,9 @@
 
 </div>
 <div id="right_center">
-
-
   <?= $this->Form->create('all',['type'=>'post','url'=>['controller'=>'Bookstates','action'=>'add']]) ?>
   <table border="1">
     <?php
-    var_dump($bookstate);
         echo '<tr><td>ISBN番号</td><td>'.$this->Form->control('Bookstates.isbn',['label'=>'']).'</td></tr>';
         echo '<tr><td>区分</td><td>'.$this->Form->select('Bookstates.category_id', [0,1, 2, 3, 4, 5,6,7,8,9]).'</td></tr>';
         echo '<tr><td>タイトル</td><td>'.$this->Form->control('Bookstates.name',['label'=>'']).'</td></tr>';
