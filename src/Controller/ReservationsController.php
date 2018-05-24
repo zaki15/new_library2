@@ -27,9 +27,23 @@ class ReservationsController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Users', 'Bookstates', 'Books']
+            'contain' => ['Users', 'Bookstates', 'Books', 'Rentals']
         ];
-        $reservations = $this->paginate($this->Reservations);
+
+        //会員IDでの検索処理
+        if($this->request->is('post')){
+            $find = $this->request->getData('id');
+            if(empty($find)){
+            $reservations = $this->Reservations->find('all');
+          }else{
+            $reservations = $this->Reservations->find()->where(['user_id'=>$find]);
+          }
+            }else{
+            $reservations = $this->Reservations->find('all');
+            }
+        //ここまで追加
+
+        $reservations = $this->paginate($reservations);
 
         $this->set(compact('reservations'));
     }

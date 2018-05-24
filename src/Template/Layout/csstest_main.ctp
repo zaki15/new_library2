@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>CSSテスト画面です</title>
-  <?=$this->Html->css('mainstyle.css')?>
+
   <?=$this->Html->css('test.css')?>
 
 
@@ -26,12 +26,12 @@
 
       <div id="menu">
         <br>
-        <a href=""><font color="black">・会員管理</font></a><br><br>
-        <a href=""><font color="black">・資料管理</font></a><br><br>
-        <a href=""><font color="black">・貸出</font></a><br><br>
-        <a href=""><font color="black">・返却</font></a><br><br>
-        <a href=""><font color="black">・予約</font></a><br><br>
-        <a href=""><font color="black"><s>・督促状管理</s></font></a>
+        <a href=""><font color="black">会員管理</font></a>
+        <a href=""><font color="black">資料管理</font></a>
+        <a href=""><font color="black">貸出</font></a>
+        <a href=""><font color="black">返却</font></a>
+        <a href=""><font color="black">予約</font></a>
+        <a href=""><font color="black"><s>督促状管理</s></font></a>
       </div>
 
 
