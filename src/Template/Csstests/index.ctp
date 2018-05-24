@@ -7,9 +7,10 @@
 ?>
 
 <div id="right_top">
-  <h1>CSSテスト画面です(h1)</h1>
-  controll:<?=$this->Form->controll('検索',['type'=>'test'])?><br>
-  text:<?=$this->Form->text('検索')?><?=$this->Form->button('検索',['type'=>'submit'])?>
+  <h2 class="heading">CSSテスト画面です(h2)</h2>
+  controll:<?=$this->Form->controll('検索',['type'=>'test',])?> <!--出力されるフォームにクラス名を付加-->
+  text:<?=$this->Form->text('検索',['class'=>'find'])?><?=$this->Form->button('検索',['type'=>'submit','class'=>'submit'])?>
+  <br>
   ragio:<?=$this->Form->radio('favorite_color',
   [
     ['value' => 'r', 'text' => 'Red', 'style' => 'color:red;'],
@@ -30,17 +31,19 @@
 
   </div>
   <div id="right_center">
+    <?=$this->Flash->render()?>
 
 
     <h3><?= __('Users') ?></h3>
 
     <table  border='1' id="test_table">
+     <thead>
       <tr>
         <th scope="col"><?= $this->Paginator->sort('id') ?></th>
         <th scope="col"><?= $this->Paginator->sort('last_name') ?></th>
-        <th scope="col"><?= $this->Paginator->sort('first_name') ?></th>
+        <!--<th scope="col"><?= $this->Paginator->sort('first_name') ?></th>-->
         <th scope="col"><?= $this->Paginator->sort('postal') ?></th>
-        <th scope="col"><?= $this->Paginator->sort('address') ?></th>
+        <!--<th scope="col"><?= $this->Paginator->sort('address') ?></th>-->
         <th scope="col"><?= $this->Paginator->sort('tel') ?></th>
         <th scope="col"><?= $this->Paginator->sort('email') ?></th>
         <th scope="col"><?= $this->Paginator->sort('birthday') ?></th>
@@ -50,13 +53,13 @@
         <th scope="col"><?= $this->Paginator->sort('delete_date') ?></th>
         <th scope="col" class="actions"><?= __('Actions') ?></th>
       </tr>
+    </thead>
+
       <?php foreach ($users as $user): ?>
         <tr>
           <td><?= $this->Number->format($user->id) ?></td>
-          <td><?= h($user->last_name) ?></td>
-          <td><?= h($user->first_name) ?></td>
-          <td><?= h($user->postal) ?></td>
-          <td><?= h($user->address) ?></td>
+          <td><?= h($user->last_name) ?><?= h($user->first_name) ?></td>
+          <td><?= h($user->postal) ?><br><?= h($user->address) ?></td>
           <td><?= h($user->tel) ?></td>
           <td><?= h($user->email) ?></td>
           <td><?= h($user->birthday) ?></td>
@@ -92,8 +95,8 @@
   </div>
 
   <div id="right_under">
-    <button class="under_button">TEST登録</button>
+    <button class="under_button_ok">TEST登録画面へ</button>
 
 
-    <button class="under_button">TESTmenu</button>
+    <button class="under_button_return">TESTmenuに戻る</button>
   </div>

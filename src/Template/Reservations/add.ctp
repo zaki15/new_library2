@@ -12,8 +12,8 @@
 
 <div id="right_center">
     <?= $this->Form->create($reservation) ?>
-    <fieldset>
-        <legend><?= __('予約情報の入力') ?></legend>
+
+        <h4><?= __('予約情報の入力') ?></h4>
         <?php
             echo "利用者ID";
             echo $this->Form->text('user_id', ['options' => $users]);

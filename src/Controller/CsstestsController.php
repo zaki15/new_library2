@@ -24,9 +24,11 @@ class CsstestsController extends AppController
       $this->loadModel('Users');
 
     }
+    public $components = array('Paginator', 'Flash');
     public function index()
     {
       $users = $this->paginate($this->Users);
+      $this->Flash->success(__('The user has been saved.'));
 
       $this->set(compact('users'));
 
