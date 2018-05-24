@@ -71,51 +71,56 @@ class BookstatesController extends AppController
             $book = $this->Books->patchEntity($books, $this->request->getData());
             if ($this->Bookstates->save($bookstate) && $this->Books->save($books)) {*/
 
-        $book = $this->Books->newEntity();
-        if ($this->request->isPost()) {
-          $isbn = $this->request->data['Bookstates']['isbn'];
+            $book = $this->Books->newEntity();
+            if ($this->request->isPost()) {
+              $isbn = $this->request->data['Bookstates']['isbn'];
 
-          if (!empty($book_isbn = $this->Books->find('all',['conditions' => ['isbn' => $isbn]]))) {
+              if (empty($book_isbn = $this->Books->find('all',['conditions' => ['isbn' => $isbn]]))) {
+                //ISBN番号がない場合の処理→bookstatesとbooksに値を保存
+                $isbn = $this->request->data['Bookstates']['isbn'];
+                $category_id = $this->request->data['Bookstates']['category_id'];
+                $name = $this->request->data['Bookstates']['name'];
+                $author = $this->request->data['Bookstates']['author'];
+                $publisher = $this->request->data['Bookstates']['publisher'];
+                $publish_date = $this->request->data['Bookstates']['publish_date'];
+                $book_entity =['isbn'=>$isbn,'category_id'=>$category_id,'name'=>$name,'author'=>$author,'publisher'=>$publisher,'publish_date'=>$publish_date];
 
-                        $isbn = $this->request->data['Bookstates']['isbn'];
-                        $category_id = $this->request->data['Bookstates']['category_id'];
-                        $name = $this->request->data['Bookstates']['name'];
-                        $author = $this->request->data['Bookstates']['author'];
-                        $publisher = $this->request->data['Bookstates']['publisher'];
-                        $publish_date = $this->request->data['Bookstates']['publish_date'];
-                        $book_entity =['isbn'=>$isbn,'category_id'=>$category_id,'name'=>$name,'author'=>$author,'publisher'=>$publisher,'publish_date'=>$publish_date];
-                        // $bookstate = $this->Bookstates->newEntity($bookstate_entity);
-                        $book = $this->Books->newEntity();
-                        //$bookstate = $this->Bookstates->patchEntity($bookstate, $this->request->getData());
-                        $book = $this->Books->patchEntity($book, $book_entity);
-                        if ($this->Books->save($book)) {
+                $arrival_date = $this->request->data['Bookstates']['arrival_date'];
+                $delete_date = $this->request->data['Bookstates']['delete_date'];
+                $state = $this->request->data['Bookstates']['state'];
+                $bookstate_entity =['arrival_date'=>$arrival_date,'delete_date'=>$delete_date,'state'=>$state];
 
-                            $this->Flash->success(__('The bookstate has been saved.'));
+                $book = $this->Books->newEntity();
+                $bookstate = $this->Bookstates->newEntity();
+                $book = $this->Books->patchEntity($book, $book_entity);
+                $bookstate = $this->Bookstates->patchEntity($bookstate, $bookstate_entity);
 
-                            return $this->redirect(['action' => 'index']);
-                        }
-                        // $bookstate[] = $this->request->data['Bookstates']['book_id'];//post
-                        // $bookstate[] = $this->request->data['Bookstates']['arrival_date'];
-                         $bookstate = $this->request->data['Bookstates']['delete_date'];
-          }else {
+                if ($this->Books->save($book) && $this->Bookstates->save($bookstate)) {
+                  $this->Flash->success(__('bookとstateに書き込みました'));
+                  return $this->redirect(['action' => 'index']);
+                }
+                $bookstate = $this->request->data['Bookstates']['delete_date'];
+              }else {
+                //ISBN番号がある場合の処理→bookstatesだけに値を保存
+                $arrival_date = $this->request->data['Bookstates']['arrival_date'];
+                $delete_date = $this->request->data['Bookstates']['delete_date'];
+                $state = $this->request->data['Bookstates']['state'];
+                
+                $bookstate_entity =['arrival_date'=>$arrival_date,'delete_date'=>$delete_date,'state'=>$state];
+                $bookstate = $this->Bookstates->patchEntity($bookstate, $bookstate_entity);
 
-            $book_test = 'なし';
+                if ($this->Bookstates->save($bookstate)) {
+                  $this->Flash->success(__('bookstateだけに書き込みました'));
+                  return $this->redirect(['action' => 'index']);
+                }
+              }
+            }
+            // $books = $this->Bookstates->Books->find('list', ['limit' => 200]);
+            // $categories = $this->Books->Categories->find('list', ['limit' => 200]);
+            // $publishers = $this->Books->Publishers->find('list', ['limit' => 200]);
+
+            $this->set(compact('bookstate','book'));
           }
-            // $book_id = $this->request->data['books']['book_id'];//post
-            // $arr_date = $this->request->data['books']['arrival_date'];
-            // $del_date = $this->request->data['books']['delete_date'];
-            // $state = $this->request->data['books']['state'];
-
-            // $bookstate_entity=['book_id'=>$book_id,'arrival_date'=>$arr_date,'delete_date'=>$del_date,'state'=>$state];
-
-            // $bookstate[] = $this->request->data['Bookstates']['state'];
-        }
-        // $books = $this->Bookstates->Books->find('list', ['limit' => 200]);
-        // $categories = $this->Books->Categories->find('list', ['limit' => 200]);
-        // $publishers = $this->Books->Publishers->find('list', ['limit' => 200]);
-
-        $this->set(compact('bookstate','book_test'));
-    }
 
     /**
      * Edit method
