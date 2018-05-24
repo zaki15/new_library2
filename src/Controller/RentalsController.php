@@ -46,7 +46,31 @@ class RentalsController extends AppController
 
     $count = $this->Rentals->find()->where(['Rentals.return_date'=>null])->count();
     $this->set(compact('rentals','users','count'));
-//$this->set('count',$count);
+    //$this->set('count',$count);
+
+
+
+    $rent_date = date(rent_date);
+    $pub_date = date(publish_date);
+    $return_date = date(return_date);
+    $prereturn_date = 0; //返却予定日
+
+    var_dump($rent_date);
+//$day->add(new DateInterval('P3m'));
+
+    if(date($pub_date,strtotime("+3month")) >= date($rent_date)){
+      $prereturn_date = date('Y-m-d',strtotime("+10day"));
+    }else{
+      $prereturn_date = date('Y-m-d',strtotime("+15day"));
+    }
+    var_dump ($prereturn_date);
+
+
+   if(date('Y-m-d') > $prereturn_date){
+      echo ("延滞資料があります。");
+    }else{
+      echo ("貸出中");
+    }
 
   }
 
