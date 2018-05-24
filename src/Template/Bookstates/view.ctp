@@ -4,23 +4,18 @@
  * @var \App\Model\Entity\Bookstate $bookstate
  */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('Edit Bookstate'), ['action' => 'edit', $bookstate->id]) ?> </li>
-        <li><?= $this->Form->postLink(__('Delete Bookstate'), ['action' => 'delete', $bookstate->id], ['confirm' => __('Are you sure you want to delete # {0}?', $bookstate->id)]) ?> </li>
-        <li><?= $this->Html->link(__('List Bookstates'), ['action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Bookstate'), ['action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Books'), ['controller' => 'Books', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Book'), ['controller' => 'Books', 'action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Rentals'), ['controller' => 'Rentals', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Rental'), ['controller' => 'Rentals', 'action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Reservations'), ['controller' => 'Reservations', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Reservation'), ['controller' => 'Reservations', 'action' => 'add']) ?> </li>
-    </ul>
-</nav>
-<div class="bookstates view large-9 medium-8 columns content">
-    <h3><?= h($bookstate->id) ?></h3>
+<div id="right_top">
+  <h1>資料詳細</h1>
+
+<br>
+
+
+</div>
+<div id="right_center">
+  <?= $this->Form->create($bookstate,['type'=>'post','url'=>['controller'=>'Bookstates','action'=>'view']]) ?>
+
+
+
     <table class="vertical-table">
         <tr>
             <th scope="row"><?= __('Book') ?></th>
@@ -38,10 +33,28 @@
             <th scope="row"><?= __('Arrival Date') ?></th>
             <td><?= h($bookstate->arrival_date) ?></td>
         </tr>
+
         <tr>
-            <th scope="row"><?= __('Delete Date') ?></th>
+            <th scope="row"><?= __('Category') ?></th>
             <td><?= h($bookstate->delete_date) ?></td>
         </tr>
+        <tr>
+            <th scope="row"><?= __('Publisher') ?></th>
+            <td><?= $this->Number->format($bookstate->id) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Isbn') ?></th>
+            <td><?= $bookstate->has('book') ? $this->Html->link($bookstate->book->isbn, ['controller' => 'Books', 'action' => 'view', $bookstate->book->id]) : '' ?> </td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Author') ?></th>
+            <td><?= $bookstate->has('book') ? $this->Html->link($bookstate->book->author, ['controller' => 'Books', 'action' => 'view', $bookstate->book->id]) : '' ?> </td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Publish Date') ?></th>
+            <td><?= $bookstate->has('book') ? $this->Html->link($bookstate->book->publish_date, ['controller' => 'Books', 'action' => 'view', $bookstate->book->id]) : '' ?> </td>
+        </tr>
+
     </table>
     <div class="related">
         <h4><?= __('Related Rentals') ?></h4>
@@ -105,4 +118,14 @@
         </table>
         <?php endif; ?>
     </div>
+</div>
+
+<div id="right_under">
+  <?= $this->Form->create($bookstate,['type'=>'post','url'=>['controller'=>'Bookstates','action'=>'edit']]) ?>
+
+  <?= $this->Form->button(__('編集'),['class'=>'under_button']) ?>
+  <?= $this->Form->end() ?>
+
+
+  <button class="under_button">情報検索画面へ</button>
 </div>

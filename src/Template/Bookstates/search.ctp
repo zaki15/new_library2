@@ -14,7 +14,8 @@
 'action'=>'search']])?>
 
 
-<div>isbn<?= $this->Form->text('Bookstates.find') ?><?= $this->Form->button('検索',['type'=>'submit']) ?></div>
+<div>isbn<?= $this->Form->text('Bookstates.find') ?>
+  <?= $this->Form->button('検索',['type'=>'submit']) ?></div>
 <div><?= $this->Form->end() ?></div>
 </div>
 
@@ -64,7 +65,8 @@
         <td><?= h($bookstate->arrival_date) ?></td>
         <td><?= h($bookstate->delete_date) ?></td>
         <td><?= h($count[$i]) ?></td>
-        <td><?=$this->Form->checkbox('bookstate_id[]',['value' => $bookstate->id])?></td>
+        <td><?= $this->Form->checkbox('bookstate_id[]',['value' => $bookstate->id])?></td>
+
 
       </tr>
       <?php $i++;?>
