@@ -50,7 +50,7 @@ class RentalsController extends AppController
 
 
 
-    $rent_date = date(rent_date);
+    /*$rent_date = date(rent_date);
     $pub_date = date(publish_date);
     $return_date = date(return_date);
     $prereturn_date = 0; //返却予定日
@@ -70,7 +70,7 @@ class RentalsController extends AppController
       echo ("延滞資料があります。");
     }else{
       echo ("貸出中");
-    }
+    }*/
 
   }
 
