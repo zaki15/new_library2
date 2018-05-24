@@ -7,6 +7,7 @@
 
 <div id="right_top">
   <h1>貸出</h1>
+
   <?=$this->Form->create(null,['type'=>'post','url'=>['controller'=>'Rentals','action'=>'index']]) ?>
   <?=$this->Form->text('Rentals.find') ?>
   <?=$this->Form->submit('検索') ?>
@@ -14,9 +15,8 @@
 </div>
 
 <div id="right_center">
+  <?php var_dump($count); ?>
   <h3><?= __('Rentals') ?></h3>
-
-
 
   <table id="test_table" border="1">
     <?php if (!empty($rentals)): ?>
@@ -123,11 +123,13 @@
     <?php endforeach; ?>
     <?php else:?>
       <td>貸出情報はありません</td>
+
     <?php endif; ?>
   </table>
 
   <h4><?= __('予約情報') ?></h4>
   <table class="test_table" border="1">
+
     <?php if (!empty($rentals->user->rental)): ?>
       <tr>
         <th scope="col"><?= __('Id') ?></th>
@@ -153,14 +155,20 @@
       <?php endforeach; ?>
     <?php else:?>
       <td>予約情報はありません</td>
+
     <?php endif; ?>
   </table>
 
 
 </div>
 
+
+</div>
 <div id="right_under">
 
+<?=$this->Form->create(null,['type'=>'post','url'=>["controller"=>"Rentals", "action" => "search"]]) ?>
+<?=$this->Form->submit('資料検索画面へ')?>
+<!--もし延滞、貸出超過があった場合は押せない仕様にする。-->
+<?=$this->Form->end()?>
 
-  <button class="under_button">資料検索画面へ</button>
 </div>
