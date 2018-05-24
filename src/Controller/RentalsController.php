@@ -22,36 +22,6 @@ class RentalsController extends AppController
   */
   public function index()
   {
-
-    if($this->request->is('post')){
-
-      $query = $this->request->data['Rentals']['find'];
-      $condition = ['conditions'=>['Users.id'=>$query],'contain'=>['Users']];
-      $rentals = $this->Rentals->find('all',$condition);
-      //$users = $this->paginate($this->Users);
-      $this->set(compact('rentals','users'));
-      //echo "<pre>".print_r($this->set(compact('rentals')))."</pre>";
-
-
-    }else{
-      //$condition = ['contain' => ['Bookstates', 'Users', 'Reservations']];
-      //$data = $this->Rentals->find('all')->contain('Users');
-    }
-
-    $params = array(
-      'return_date' => array(
-        '' >= 5,
-      )
-    );
-
-    $count = $this->Rentals->find()->where(['Rentals.return_date'=>null])->count();
-    $this->set(compact('rentals','users','count'));
-//$this->set('count',$count);
-
-  }
-
-
-  public function test(){
     if($this->request->is('post')){
 
       $query = $this->request->data['Rentals']['find'];
@@ -68,6 +38,63 @@ class RentalsController extends AppController
 
   }else{
     $this->set('user', $user);
+    //$condition = ['contain' => ['Bookstates', 'Users', 'Reservations']];
+    //$data = $this->Rentals->find('all')->contain('Users');
+  }
+  /*
+
+  if($this->request->is('post')){
+
+  $query = $this->request->data['Rentals']['find'];
+  $condition = ['conditions'=>['Users.id'=>$query],'contain'=>['Users']];
+  $rentals = $this->Rentals->find('all',$condition);
+  //$users = $this->paginate($this->Users);
+  $this->set(compact('rentals','users'));
+  //echo "<pre>".print_r($this->set(compact('rentals')))."</pre>";
+
+
+}else{
+//$condition = ['contain' => ['Bookstates', 'Users', 'Reservations']];
+//$data = $this->Rentals->find('all')->contain('Users');
+}
+
+$params = array(
+'return_date' => array(
+'' >= 5,
+)
+);
+
+$count = $this->Rentals->find()->where(['Rentals.return_date'=>null])->count();
+$this->set(compact('rentals','users','count'));
+//$this->set('count',$count);*/
+
+}
+
+
+public function test(){
+  if($this->request->is('post')){
+
+    $query = $this->request->data['Rentals']['find'];
+    $user = $this->Users->get($query, [
+      'contain' => ['Rentals', 'Reservations']
+    ]);//idより
+    $rental_count=0;//貸出中カウント
+    
+
+    foreach ($user->rentals as $rentals) {
+      if(empty($rentals->return_date)){
+        $rental_count++;
+      }
+      //$rental_count = $rentals->return_date;
+    }
+    //$rental_count = $user;
+
+    $this->set(compact('user', 'rental_count'));
+
+    //$this->set('user', $user);
+
+  }else{
+    //$this->set('user', $user);
     //$condition = ['contain' => ['Bookstates', 'Users', 'Reservations']];
     //$data = $this->Rentals->find('all')->contain('Users');
   }

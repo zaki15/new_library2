@@ -8,11 +8,14 @@
   <h1>貸出</h1>
   <?=$this->Form->create(null,['type'=>'post','url'=>['controller'=>'Rentals','action'=>'test']]) ?>
   <?=$this->Form->text('Rentals.find') ?>
-  <?=$this->Form->submit('検索') ?>
+  <?=$this->Form->button('検索',['type'=>'submit']) ?>
   <?=$this->Form->end() ?>
 </div>
 <div id="right_center">
   <br>
+  <pre>
+  <?php  var_dump($rental_count);?>
+  </pre>
 
 
   <table id="test_table" border="1">
@@ -23,19 +26,12 @@
     </tr>
       <tr>
           <th scope="row"><?= __('姓') ?></th>
-          <td><?= h($user->last_name) ?></td>
-      </tr>
-      <tr>
-          <th scope="row"><?= __('名') ?></th>
-          <td><?= h($user->first_name) ?></td>
+          <td><?= h($user->last_name) ?><?= h($user->first_name) ?></td>
       </tr>
       <tr>
           <th scope="row"><?= __('郵便番号') ?></th>
-          <td><?= h($user->postal) ?></td>
-      </tr>
-      <tr>
-          <th scope="row"><?= __('住所') ?></th>
-          <td><?= h($user->address) ?></td>
+          <td><?= h($user->postal) ?><?= h($user->address) ?></td>
+
       </tr>
       <tr>
           <th scope="row"><?= __('電話番号') ?></th>
