@@ -14,7 +14,6 @@ use Cake\Event\Event;
 
 class UsersController extends AppController
 {
-
     /**
      * Index method
      *
@@ -46,7 +45,7 @@ class UsersController extends AppController
         ]);
 
         $this->set('user', $user);
-        
+
     }
 
     public function search()

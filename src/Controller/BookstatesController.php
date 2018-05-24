@@ -63,7 +63,7 @@ class BookstatesController extends AppController
 
         $bookstate = $this->Bookstates->newEntity();
 
-  //@okabe l66~76
+  /* @okabe l66~76*/
         /*$books = $this->Books->newEntity();
         if ($this->request->isPost()) {
 
@@ -234,7 +234,7 @@ class BookstatesController extends AppController
         }
         $data=$this->paginate($this->Bookstates->find());
 
-        $this->set(compact('bookstates', 'books','count'));
+        $this->set(compact('bookstates', 'count'));
 
     }
 
