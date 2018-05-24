@@ -65,7 +65,8 @@
         <td><?= h($bookstate->arrival_date) ?></td>
         <td><?= h($bookstate->delete_date) ?></td>
         <td><?= h($count[$i]) ?></td>
-        <td><?=$this->Form->checkbox('bookstate_id[]',['value' => $bookstate->id])?></td>
+        <td><?= $this->Form->checkbox('bookstate_id[]',['value' => $bookstate->id])?></td>
+
 
       </tr>
       <?php $i++;?>

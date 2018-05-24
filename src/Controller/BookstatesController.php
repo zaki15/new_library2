@@ -141,7 +141,7 @@ class BookstatesController extends AppController
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $bookstate = $this->Bookstates->patchEntity($bookstate, $this->request->getData());
-            if ($this->Bookstates->saveAll($bookstate)) {
+            if ($this->Bookstates->save($bookstate)) {
                 $this->Flash->success(__('The bookstate has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
