@@ -1,0 +1,265 @@
+* {
+
+  margin: 0;
+  padding: 0;
+}
+html {
+  height: 100%;
+  width: 100%;
+
+}
+
+body {
+  height: 100%;
+  width: 100%;
+
+}
+
+#container{
+  height: 100%;
+  width: 100%;
+  //background-color: #5f32c1;
+
+}
+
+#content{
+  height: 100%;
+  width: 100%;
+
+
+}
+
+#left{
+  height:100%;
+  width: 15%;
+
+  float: left;
+  text-align: center;
+
+
+}
+
+#right{
+  height:100%;
+  width: 85%;
+  //background-color: #850000;
+  float: right;
+  box-shadow: 4px 0px 3px 0px #444444 inset;
+
+
+}
+
+#search{
+  //margin-top: 30px;
+  height:30px;
+  width: auto;
+
+
+}
+
+#right_top{
+  text-align: center;
+  height:20%;
+  width: 100%;
+  //background-color: #cccccc;
+  //float: right;
+  //box-shadow: 4px 0px 4px -4px #444444 inset;
+
+}
+
+.test_table{
+  margin: auto;
+}
+
+#right_center{
+
+  text-align: center;
+  height:70%;
+  width: 100%;
+  overflow: auto;
+  //background-color: #ffffff;
+  //float: right;
+  box-shadow: 4px 0px 4px 0px #444444 inset;
+
+}
+
+#right_under{
+  text-align: center;
+  height:10%;
+  width: 100%;
+  //background-color: #ffffff;
+  //float: right;
+  //box-shadow: 4px 0px 4px -4px #444444 inset;
+
+}
+
+#logo{
+  height:10%;
+  width: 100%;
+  background-color: #0643b9;
+
+}
+#search_box{
+  height:20%;
+  width: 100%;
+  background-color: #d7d7d7;
+
+}
+#menu{
+  height:60%;
+  width: 100%;
+  background-color: #d7d7d7;
+
+}
+#left_footer{
+  height:10%;
+  width: 100%;
+  background-color: #d7d7d7;
+
+}
+#left_text{
+  width: 150px;
+}
+
+.under_button{
+  margin: 10px;
+  display: inline-block;
+    padding: 0.5em 1em;
+    text-decoration: none;
+    background: #668ad8;/*ボタン色*/
+    color: #FFF;
+    border-bottom: solid 4px #627295;
+    border-radius: 3px;
+}
+
+.under_button:active{
+  -ms-transform: translateY(4px);
+    -webkit-transform: translateY(4px);
+    transform: translateY(4px);/*下に動く*/
+    box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.2);/*影を小さく*/
+    border-bottom: none;
+
+}
+
+.button_user{
+  height: 40px;
+  width: 200px;
+  margin: 10px;
+  display: inline-block;
+    padding: 0.5em 1em;
+    text-decoration: none;
+    background: #668ad8;/*ボタン色*/
+    color: #FFF;
+    border-bottom: solid 4px #627295;
+    border-radius: 3px;
+}
+
+.button_user:active{
+  -ms-transform: translateY(4px);
+    -webkit-transform: translateY(4px);
+    transform: translateY(4px);/*下に動く*/
+    box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.2);/*影を小さく*/
+    border-bottom: none;
+
+}
+
+.change_text{
+  width: 100px;
+
+}
+
+#sign_top{
+  height:20%;
+  width: 100%;
+
+}
+#sign_center{
+  text-align: center;
+  height:60%;
+  width: 100%;
+}
+#sign_under{
+  height:20%;
+  width: 100%;
+}
+
+table{
+  width: 500px;
+  margin: auto;
+}
+
+div.message {//styleより追加
+    text-align: center;
+    cursor: pointer;
+    display: block;
+    font-weight: normal;
+    padding: 0 1.5rem 0 1.5rem;
+    transition: height 300ms ease-out 0s;
+    background-color: #a0d3e8;
+    color: #626262;
+    top: 15px;
+    right: 15px;
+    z-index: 999;
+    overflow: hidden;
+    height: 50px;
+    line-height: 2.5em;
+}
+
+div.message:before {
+    line-height: 0px;
+    font-size: 20px;
+    height: 12px;
+    width: 12px;
+    border-radius: 15px;
+    text-align: center;
+    vertical-align: middle;
+    display: inline-block;
+    position: relative;
+    left: -11px;
+    background-color: #FFF;
+    padding: 12px 14px 12px 10px;
+    content: "☓";
+    color: #a0d3e8;
+}
+
+div.message.error {
+    background-color: #C3232D;
+    color: #FFF;
+}
+
+div.message.error:before {
+    padding: 11px 16px 14px 7px;
+    color: #C3232D;
+    content: "x";
+}
+div.message.hidden {
+    height: 0;
+}
+
+ul.pagination li a {
+    color: rgba(0, 0 ,0 , 0.54);
+}
+
+ul.pagination li.active a {
+    background-color: #DCE47E;
+    color: #FFF;
+    font-weight: bold;
+    cursor: default;
+}
+ul.pagination .disabled:hover a {
+    background: none;
+}
+
+.paginator {
+    text-align: center;
+}
+
+.paginator ul.pagination li {
+    float: none;
+    display: inline-block;
+}
+
+.paginator p {
+    text-align: right;
+    color: rgba(0, 0 ,0 , 0.54);
+}

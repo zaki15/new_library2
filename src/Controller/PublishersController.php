@@ -18,6 +18,15 @@ class PublishersController extends AppController
      *
      * @return \Cake\Http\Response|void
      */
+     public function initialize(){
+       $this->viewBuilder()->setLayout('main');
+       $this->loadComponent('RequestHandler');
+       $this->loadComponent('Flash');
+       $this->loadModel('Books');
+       $this->loadModel('Publishers');
+       $this->loadModel('Categories');
+
+     }
     public function index()
     {
         $publishers = $this->paginate($this->Publishers);

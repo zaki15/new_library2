@@ -9,8 +9,8 @@
     <br>
     <!--<? /*= $this->Html->link(__('新規予約'), ['action' => 'add'])*/ ?> -->
     <h3>利用者ID検索</h3>
-    <?=$this->Form->create(null,['type'=>'post','url'=>['controller'=>'People','action'=>'index']]) ?>
-    <div><?=$this->Form->text('Reservations.find') ?></div>
+    <?=$this->Form->create(null,['type'=>'post','url'=>['controller'=>'Reservations','action'=>'index']]) ?>
+    <div><?=$this->Form->text('id') ?></div>
     <div><?=$this->Form->submit('検索') ?></div>
     <?=$this->Form->end() ?>
 
@@ -29,6 +29,7 @@
                 <th scope="col"><?= $this->Paginator->sort('first_name') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('bookstate_id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('book_id') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('book_isbn') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('date') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
@@ -43,6 +44,7 @@
                 <td><?= $reservation->has('user') ? $this->Html->link($reservation->user->first_name, ['controller' => 'Users', 'action' => 'view', $reservation->user->first_name]) : '' ?></td>
                 <td><?= $reservation->has('bookstate') ? $this->Html->link($reservation->bookstate->id, ['controller' => 'Bookstates', 'action' => 'view', $reservation->bookstate->id]) : '' ?></td>
                 <td><?= $reservation->has('book') ? $this->Html->link($reservation->book->name, ['controller' => 'Books', 'action' => 'view', $reservation->book->id]) : '' ?></td>
+                <td><?= $reservation->has('book') ? $this->Html->link($reservation->book->isbn, ['controller' => 'Books', 'action' => 'view', $reservation->book->isbn]) : '' ?></td>
                 <td><?= h($reservation->date) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $reservation->id]) ?>
@@ -67,5 +69,5 @@
 
 <div id="right_under">
 
-  <input type="button" name="" value="新規予約" onclick="location.href='http://localhost/library_system2/reservations/add'">
+  <input type="button" name="" value="新規予約" onclick="location.href='http://localhost/library_system/reservations/add'">
 </div>

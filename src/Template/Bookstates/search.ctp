@@ -13,21 +13,24 @@
 'url'=>['controller'=>'Bookstates',
 'action'=>'search']])?>
 
-<div>isbn<?= $this->Form->text('Bookstates.find') ?><?= $this->Form->submit('検索') ?></div>
 
+<div>isbn<?= $this->Form->text('Bookstates.find') ?>
+  <?= $this->Form->button('検索',['type'=>'submit']) ?></div>
 <div><?= $this->Form->end() ?></div>
 </div>
 
 <div id="right_center">
+
   <pre>
   <?php
 //var_dump($bookstates[0]);
-var_dump($count);
+//var_dump($count);
 //print_r($books);
 
 
    ?>
  </pre>
+
 
   <h3><?= __('Bookstates') ?></h3>
 
@@ -49,6 +52,8 @@ var_dump($count);
     <?php $i=0;?>
     <?php foreach ($bookstates as $bookstate): ?>
       <tr>
+
+
         <td><?= h($bookstate->id)  ?></td>
         <td><?= h($bookstate->book->isbn)  ?></td>
         <td><?= h($bookstate->book->category->category)  ?></td>
@@ -60,7 +65,8 @@ var_dump($count);
         <td><?= h($bookstate->arrival_date) ?></td>
         <td><?= h($bookstate->delete_date) ?></td>
         <td><?= h($count[$i]) ?></td>
-        <td><?= $this->Form->checkbox('') ?></td>
+        <td><?= $this->Form->checkbox('bookstate_id[]',['value' => $bookstate->id])?></td>
+
 
       </tr>
       <?php $i++;?>
@@ -82,6 +88,10 @@ var_dump($count);
   </div>
 </div>
 <div id="right_under">
+  <?= $this->Form->create(null,
+  ['type'=>'post',
+  'url'=>['controller'=>'Bookstates',
+  'action'=>'edit']])?>
   <?= $this->Form->button(__('変更・削除画面へ'),['class'=>'under_button']) ?>
   <?= $this->Form->end() ?>
 </div>
