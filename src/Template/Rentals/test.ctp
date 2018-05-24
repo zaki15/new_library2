@@ -14,7 +14,7 @@
 <div id="right_center">
   <br>
   <pre>
-  <?php  var_dump($rental_count);?>
+  <?php  var_dump($time);?>
   </pre>
 
 
@@ -79,8 +79,10 @@
             <th scope="col"><?= __('Rent Date') ?></th>
             <th scope="col"><?= __('Return Date') ?></th>
             <th scope="col"><?= __('Pressing Letter') ?></th>
+            <th scope="col"><?= __('alert') ?></th>
             <th scope="col" class="actions"><?= __('Actions') ?></th>
         </tr>
+        <?php $i=0; ?>
         <?php foreach ($user->rentals as $rentals): ?>
         <tr>
             <td><?= h($rentals->id) ?></td>
@@ -90,11 +92,13 @@
             <td><?= h($rentals->rent_date) ?></td>
             <td><?= h($rentals->return_date) ?></td>
             <td><?= h($rentals->pressing_letter) ?></td>
+            <td><?php echo $time[$i]; ?></td>
             <td class="actions">
                 <?= $this->Html->link(__('View'), ['controller' => 'Rentals', 'action' => 'view', $rentals->id]) ?>
                 <?= $this->Html->link(__('Edit'), ['controller' => 'Rentals', 'action' => 'edit', $rentals->id]) ?>
                 <?= $this->Form->postLink(__('Delete'), ['controller' => 'Rentals', 'action' => 'delete', $rentals->id], ['confirm' => __('Are you sure you want to delete # {0}?', $rentals->id)]) ?>
             </td>
+            <?php $i++; ?>
         </tr>
         <?php endforeach; ?>
       <?php else:?>

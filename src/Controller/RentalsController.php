@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller;
 use App\Controller\AppController;
+use Cake\I18n\Time;
 /**
 * Rentals Controller
 *
@@ -13,6 +14,8 @@ class RentalsController extends AppController
   public function initialize(){
     $this->viewBuilder()->setLayout('main');
     $this->loadModel('Users');
+    $this->loadModel('Books');
+    $this->loadModel('Bookstates');
   }
 
   /**
@@ -78,26 +81,86 @@ public function test(){
     $user = $this->Users->get($query, [
       'contain' => ['Rentals', 'Reservations']
     ]);//idより
+
     $rental_count=0;//貸出中カウント
-    
+
+
+
 
     foreach ($user->rentals as $rentals) {
       if(empty($rentals->return_date)){
         $rental_count++;
       }
-      //$rental_count = $rentals->return_date;
-    }
-    //$rental_count = $user;
 
-    $this->set(compact('user', 'rental_count'));
+      //$condition = ['conditions'=>['id'=>$rentals->bookstate_id]];
+      //$publish_date=$this->Rentals->find('all',$condition)->contain(['Bookstates' => 'Books'])->toArray();
+      $id=1;
+      $rentbook = $this->Bookstates->get($rentals->bookstate_id,['contain'=>'Books'])->book;
+      //$publish_date[]=$rentbook->publish_date;
+      $shikan = $rentbook->publish_date->modify('+3 month');
 
-    //$this->set('user', $user);
+      $rent_date=$rentals->rent_date;
+      if($shikan > $rent_date ){
+        if($rentals->rent_date->wasWithinLast(10)){
+          if(empty($rentals->return_date)){
+            $time[]="レンタル期間内です";
+          }else{
+            $time[]="返却済";
+          }
+        }else{
+          if(empty($rentals->return_date)){
+            $time[]="<font color='red'>延滞中</font>";
+          }else{
+            $time[]="返却済";
+          }
+        }
+      }else{
 
-  }else{
-    //$this->set('user', $user);
-    //$condition = ['contain' => ['Bookstates', 'Users', 'Reservations']];
-    //$data = $this->Rentals->find('all')->contain('Users');
+        if($rentals->rent_date->wasWithinLast(15)){
+
+          if(empty($rentals->return_date)){
+            $time[]="レンタル期間内です";
+          }else{
+            $time[]="返却済";
+          }
+
+        }else{
+          if(empty($rentals->return_date)){
+            $time[]="<font color='red'>延滞中</font>";
+          }else{
+            $time[]="返却済";
+          }
+
+        }
+
+      }
+
+      //$time[]=$shikan->diff($rent_date)->m;
+      //$shikan->diff($rent_date)->days;
+      //$time[]=strval($shikan);
+      //$time[]=strval($rent_date);
+      /*if($shinkan >= $rent_date ){
+      $time="行ける";
+    }*/
+
+    //$time[] = $rentals->rent_date->wasWithinLast(15);
+    //$time = Time::now();
+
+    // ２日以内かどうか
+    //$time=$time->isWithinNext(2);
+
   }
+  //$rental_count = $user;
+
+  $this->set(compact('user', 'rental_count','time','publish_date','rentbook'));
+
+  //$this->set('user', $user);
+
+}else{
+  //$this->set('user', $user);
+  //$condition = ['contain' => ['Bookstates', 'Users', 'Reservations']];
+  //$data = $this->Rentals->find('all')->contain('Users');
+}
 
 
 
