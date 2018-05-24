@@ -76,27 +76,44 @@ class BookstatesController extends AppController
             if ($this->Bookstates->save($bookstate) && $this->Books->save($books)) {*/
 
         $book = $this->Books->newEntity();
+        $isbn = $this->request->data['Bookstates']['isbn'];
         if ($this->request->isPost()) {
-            $book_id=$this->request->data['']['book_id'];//post
+          if (!enmpty($this->Books->find('isbn','conditions' => array('Books.isbn' => $isbn))->contain(['Books' => ["Publishers","Categories"],'Books'])->toArray())) {
+            // code...
+          }
+            // $book_id = $this->request->data['books']['book_id'];//post
+            // $arr_date = $this->request->data['books']['arrival_date'];
+            // $del_date = $this->request->data['books']['delete_date'];
+            // $state = $this->request->data['books']['state'];
 
-            $bookstate_entity=['book_id'=>$book_id,'arrival_date'=>$arr_date];
-
-            $bookstate = $this->Bookstates->newEntity($bookstate_entity);
+            // $bookstate_entity=['book_id'=>$book_id,'arrival_date'=>$arr_date,'delete_date'=>$del_date,'state'=>$state];
+            $isbn = $this->request->data['Bookstates']['isbn'];
+            $category_id = $this->request->data['Bookstates']['category_id'];
+            $name = $this->request->data['Bookstates']['name'];
+            $author = $this->request->data['Bookstates']['author'];
+            $publisher = $this->request->data['Bookstates']['publisher'];
+            $publish_date = $this->request->data['Bookstates']['publish_date'];
+            $book_entity =['isbn'=>$isbn,'category_id'=>$category_id,'name'=>$name,'author'=>$author,'publisher'=>$publisher,'publish_date'=>$publish_date];
+            // $bookstate = $this->Bookstates->newEntity($bookstate_entity);
             $book = $this->Books->newEntity();
             //$bookstate = $this->Bookstates->patchEntity($bookstate, $this->request->getData());
-            //$book = $this->Books->patchEntity($bookstate, $this->request->getData());
-            if ($this->Bookstates->save($bookstate)&&$this->Books->save($books)) {
+            $book = $this->Books->patchEntity($book, $book_entity);
+            if ($this->Books->save($book)) {
 
                 $this->Flash->success(__('The bookstate has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The bookstate could not be saved. Please, try again.'));
+            // $bookstate[] = $this->request->data['Bookstates']['book_id'];//post
+            // $bookstate[] = $this->request->data['Bookstates']['arrival_date'];
+             $bookstate = $this->request->data['Bookstates']['delete_date'];
+            // $bookstate[] = $this->request->data['Bookstates']['state'];
         }
-        $books = $this->Bookstates->Books->find('list', ['limit' => 200]);
-        $categories = $this->Books->Categories->find('list', ['limit' => 200]);
-        $publishers = $this->Books->Publishers->find('list', ['limit' => 200]);
-        $this->set(compact('bookstate', 'books', 'categories', 'publishers'));
+        // $books = $this->Bookstates->Books->find('list', ['limit' => 200]);
+        // $categories = $this->Books->Categories->find('list', ['limit' => 200]);
+        // $publishers = $this->Books->Publishers->find('list', ['limit' => 200]);
+
+        $this->set(compact('bookstate'));
     }
 
     /**
@@ -217,7 +234,8 @@ class BookstatesController extends AppController
         $this->set('bookstates',$data);*/
 
 
-          $condition = ['conditions'=>['name'=>$find]];
+          $condition = ['conditions'=> ['or'=>['name like'=>'%'.$find.'%','isbn like'=>'%'.$find.'%']],
+                          'order'=>['isbn'=>'asc']];
           $bookstates = $this->Bookstates->find('all',$condition)->contain(['Books' => ["Publishers","Categories"],'Books'])->toArray();
           $count[] = $this->Bookstates->find('all',$condition)->contain('Books')->count();
           //$books=$this->Books->find('all',$condition)->contain('Publishers');

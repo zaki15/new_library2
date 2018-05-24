@@ -14,7 +14,8 @@
 'action'=>'search']])?>
 
 
-<div>isbn<?= $this->Form->text('Bookstates.find') ?><?= $this->Form->button('検索',['type'=>'submit']) ?></div>
+<div>isbn<?= $this->Form->text('Bookstates.find') ?>
+  <?= $this->Form->button('検索',['type'=>'submit']) ?></div>
 <div><?= $this->Form->end() ?></div>
 </div>
 
