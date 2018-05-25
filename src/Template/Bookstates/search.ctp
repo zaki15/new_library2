@@ -30,6 +30,10 @@
 
    ?>
  </pre>
+ <?= $this->Form->create(null,
+ ['type'=>'post',
+ 'url'=>['controller'=>'Bookstates',
+ 'action'=>'edit']])?>
 
  <?= $this->Form->create(null,
  ['type'=>'post',
@@ -92,6 +96,8 @@
 </div>
 <div id="right_under">
 
-  <?= $this->Form->button(__('変更・削除画面へ'),['class'=>'under_button']) ?>
+
+  <?= $this->Form->button(__('変更・削除画面へ'),['class'=>'under_button','type'=>'submit']) ?>
+
   <?= $this->Form->end() ?>
 </div>

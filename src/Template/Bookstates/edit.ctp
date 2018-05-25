@@ -10,15 +10,39 @@
   廃棄の場合は蔵書冊数を変更してください
 </div>
 <div id="right_center">
-  <!-- <pre>
-<?php
-var_dump($bookstate);
- ?>
-  </pre> -->
-  <?= $this->Form->create($bookstate,['type'=>'post','url'=>['controller'=>'Bookstates','action'=>'done']]) ?>
-  <table id="test_table">
+
+  <pre>
+    <?php var_dump($new_test); ?>
+  </pre>
+  <?= $this->Form->create($bookstate,['type'=>'post','url'=>['controller'=>'Bookstates','action'=>'edit']]) ?>
+  <table border="1">
         <?php
-        $i=0;
+        $i='1';
+            // echo $this->Form->control('book_id');
+            echo $this->Form->control('book'.$i.'.isbn');
+            echo $this->Form->control('book'.$i.'.name');
+            echo $this->Form->control('book'.$i.'.author');
+            echo $this->Form->control('book'.$i.'.publisher');
+            echo $this->Form->control('book'.$i.'.publish_date');
+            echo $this->Form->control('book'.$i.'.arrival_date');
+            echo $this->Form->control('book'.$i.'.delete_date');
+            echo $this->Form->control('book'.$i.'.state');
+
+            echo '<br>';
+            $i='2';
+
+            echo $this->Form->control('book'.$i.'.isbn');
+            echo $this->Form->control('book'.$i.'.name');
+            echo $this->Form->control('book'.$i.'.author');
+            echo $this->Form->control('book'.$i.'.publisher');
+            echo $this->Form->control('book'.$i.'.publish_date');
+            echo $this->Form->control('book'.$i.'.arrival_date');
+            echo $this->Form->control('book'.$i.'.delete_date');
+            echo $this->Form->control('book'.$i.'.state');
+
+        ?>
+      </table>
+
 
         foreach ($bookstate as $value) {
           echo '<tr><td></td><td>'.'<br>'.'</td></tr>';

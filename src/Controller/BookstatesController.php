@@ -101,18 +101,42 @@ class BookstatesController extends AppController
         $delete_date = $this->request->data['Bookstates']['delete_date'];
         $state = $this->request->data['Bookstates']['state'];
 
-        $bookstate_entity =['book_id'=>$book_id,'arrival_date'=>$arrival_date,'delete_date'=>$delete_date,'state'=>$state];
-        $bookstate = $this->Bookstates->patchEntity($bookstate, $bookstate_entity);
 
-        if ($this->Bookstates->save($bookstate)) {
-          $this->Flash->success(__('bookstateだけに書き込みました'));
-          return $this->redirect(['action' => 'index']);
-        }
       }
     }
 
-    $this->set(compact('bookstate','book'));
-  }
+    /**
+     * Edit method
+     *
+     * @param string|null $id Bookstate id.
+     * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
+     * @throws \Cake\Network\Exception\NotFoundException When record not found.
+     */
+    public function edit()
+    {
+        $id=1;
+        $bookstate = $this->Bookstates->get($id, [
+            'contain' => ['Books']
+        ]);
+        $test_post=$this->request->getData('bookstate_id');
+        $new_test=$this->request->getData();
+        /*
+
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $bookstate = $this->Bookstates->patchEntity($bookstate, $this->request->getData());
+            if ($this->Bookstates->save($bookstate)) {
+                $this->Flash->success(__('The bookstate has been saved.'));
+
+                return $this->redirect(['action' => 'index']);
+            }
+            $this->Flash->error(__('The bookstate could not be saved. Please, try again.'));
+        }*/
+        $books = $this->Bookstates->Books->find('list', ['limit' => 200]);
+        $categories = $this->Books->Categories->find('list', ['limit' => 200]);
+        $publishers = $this->Books->Publishers->find('list', ['limit' => 200]);
+        $this->set(compact('bookstate', 'books', 'categories', 'publishers','test_post','new_test'));
+.
+    }
 
   /**
   * Edit method
@@ -148,7 +172,6 @@ class BookstatesController extends AppController
       $this->set(compact('bookstate', 'books', 'categories', 'publishers','new_test','new_post'));
     }
   }
-
   public function done()
   {
     //$category_idと$publisherが取れていない・・・
@@ -203,6 +226,7 @@ $new_post[] = $book_entity;
       $this->Flash->error(__('The bookstate could not be deleted. Please, try again.'));
     }
 
+
     return $this->redirect(['action' => 'index']);
   }
 
@@ -229,6 +253,7 @@ $new_post[] = $book_entity;
       //$books=$this->Books->find('all')->contain('Books','Publishers','Categories');
     }
     $data=$this->paginate($this->Bookstates->find());
+
 
     $this->set(compact('bookstates', 'count'));
 
