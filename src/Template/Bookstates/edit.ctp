@@ -6,10 +6,8 @@
 ?>
 <div id="right_top">
   <h1>資料情報の変更・削除</h1>
-
   変更する項目を入力してください<br>
   廃棄の場合は蔵書冊数を変更してください
-
 </div>
 <div id="right_center">
   <!-- <pre>
@@ -37,14 +35,9 @@ var_dump($bookstate);
             echo '<hr>';
           }?>
       </table>
-
     </div>
-
     <div id="right_under">
-
       <?= $this->Form->button(__('登録'),['class'=>'under_button']) ?>
       <?= $this->Form->end() ?>
-
-
       <button class="under_button">情報検索画面へ</button>
     </div>
