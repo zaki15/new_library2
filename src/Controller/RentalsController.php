@@ -29,6 +29,7 @@ class RentalsController extends AppController
   private function delay_check($rental_id){//rentals_idより延滞判定 返り値 配列 delay=>boolean diff_days=>返却期限との差
     $limit_date = $this->Rentals->get($rental_id)->limit_date;
     $today_date = Time::now();
+
     $diff_days = $limit_date->diff($today_date)->days;
 
     if($limit_date>$today_date){//正常
@@ -75,82 +76,82 @@ class RentalsController extends AppController
     $count = $this->Rentals->find()->where(['Rentals.return_date'=>null])->count();
     $this->set(compact('rentals','users','count'));
 
+  }
+
+
+
+
+  public function test(){
+    if($this->request->is('post')){
+
+      $query = $this->request->data['Rentals']['find'];
+      $user = $this->Users->get($query, [
+        'contain' => ['Rentals', 'Reservations']
+      ]);//idより
+
+      $rental_count=0;//貸出中カウント
+      $entai_count=0;//延滞数
+      $rental_allow=5;
+
+      foreach ($user->rentals as $rentals) {
+        if(empty($rentals->return_date)){
+          $rental_count++;
+        }
+        $dump[]=$this->delay_check($rentals->id);
+
+
+
+        if($this->delay_check($rentals->id)['delay']){
+
+          $return_check[]="延滞中";
+          $entai_count++;
+          $rental_count--;
+        }else{
+          $return_check[]="期間内";
+
+        }
+
+
+        /*
+
+        $rentbook = $this->Bookstates->get($rentals->bookstate_id,['contain'=>'Books'])->book;
+        //$publish_date[]=$rentbook->publish_date;
+        $shikan = $rentbook->publish_date->modify('+3 month');
+
+        $rent_date=$rentals->rent_date;
+        if($shikan > $rent_date ){
+        if($rentals->rent_date->wasWithinLast(10)){
+        if(empty($rentals->return_date)){
+        $return_check[]="レンタル期間内です";
+      }else{
+      $return_check[]="返却済";
+    }
+  }else{
+  if(empty($rentals->return_date)){
+  $return_check[]="<font color='red'>延滞中</font>";
+  $entai_count++;
+  $rental_count--;
+}else{
+$return_check[]="返却済";
+}
+}
+}else{
+
+
+
+}*/
+
+$rental_allow=5-$rental_count;
+
+}
+
+if($entai_count>0){
+  $rental_allow=0;
+  $this->Flash->error(__('貸出期間を超過している本が存在しています。'));
 }
 
 
-
-
-public function test(){
-  if($this->request->is('post')){
-
-    $query = $this->request->data['Rentals']['find'];
-    $user = $this->Users->get($query, [
-      'contain' => ['Rentals', 'Reservations']
-    ]);//idより
-
-    $rental_count=0;//貸出中カウント
-    $entai_count=0;//延滞数
-    $rental_allow=5;
-
-    foreach ($user->rentals as $rentals) {
-      if(empty($rentals->return_date)){
-        $rental_count++;
-      }
-      $dump[]=$this->delay_check($rentals->id);
-
-
-
-      if($this->delay_check($rentals->id)['delay']){
-
-        $return_check[]="延滞中";
-        $entai_count++;
-        $rental_count--;
-      }else{
-        $return_check[]="期間内";
-      
-      }
-
-
-      /*
-
-      $rentbook = $this->Bookstates->get($rentals->bookstate_id,['contain'=>'Books'])->book;
-      //$publish_date[]=$rentbook->publish_date;
-      $shikan = $rentbook->publish_date->modify('+3 month');
-
-      $rent_date=$rentals->rent_date;
-      if($shikan > $rent_date ){
-        if($rentals->rent_date->wasWithinLast(10)){
-          if(empty($rentals->return_date)){
-            $return_check[]="レンタル期間内です";
-          }else{
-            $return_check[]="返却済";
-          }
-        }else{
-          if(empty($rentals->return_date)){
-            $return_check[]="<font color='red'>延滞中</font>";
-            $entai_count++;
-            $rental_count--;
-          }else{
-            $return_check[]="返却済";
-          }
-        }
-      }else{
-
-
-
-      }*/
-
-      $rental_allow=5-$rental_count;
-
-  }
-
-  if($entai_count>0){
-    $rental_allow=0;
-    $this->Flash->error(__('貸出期間を超過している本が存在しています。'));
-  }
-
-
-  $this->set(compact('user', 'rental_allow','return_check','dump','rentbook'));
+$this->set(compact('user', 'rental_allow','return_check','dump','rentbook'));
 }else{
   //$this->set('user', $user);
   //$condition = ['contain' => ['Bookstates', 'Users', 'Reservations']];
