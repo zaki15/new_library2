@@ -30,7 +30,8 @@
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($rentals as $rental): ?>
+            <?php foreach ($rentals as $rental):
+              ?>
             <tr>
                 <td><?= $this->Number->format($rental->id) ?></td>
                 <td><?= h($rental->id) ?></td>

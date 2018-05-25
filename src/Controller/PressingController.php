@@ -36,6 +36,8 @@ class PressingController extends AppController
     $this->delay_check;
 
     $rentals = $this->Rentals->find('all');
+    $this->delay_check($this->Rentals->id);
+    
     $this->set(compact('rentals'));
 
   }
@@ -47,10 +49,10 @@ class PressingController extends AppController
     $diff_days = $limit_date->diff($today_date)->days;
 
     if($limit_date>$today_date){ //延滞していない
-      $return = ['delay'=>false,'diff_days'=>$diff_days];
+      $return = ['delay'=>false,'diff_days'=>$diff_days];  //連想配列を返す、diff_daysは日数
 
-    }else{//延滞中
-      $return = ['delay'=>true,'diif_days'=>$diff_days];
+    }else{ //延滞中
+      $return = ['delay'=>true,'diif_days'=>$diff_days]; //delayがtrueの連想配列、diff_daysは日数
 
     }
     return $return;
