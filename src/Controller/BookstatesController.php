@@ -62,15 +62,6 @@ class BookstatesController extends AppController
      {
        $bookstate = $this->Bookstates->newEntity();
 
-       /* @okabe l66~76*/
-       /*$books = $this->Books->newEntity();
-       if ($this->request->isPost()) {
-       $book_id = $this->requestdata[''][''];
-       $bookstate_entity =['book_id'=>$book_id,'arrival_date'=>$arr_date];
-       $bookstate = $this->Bookstates->patchEntity($bookstate, $this->request->getData());
-       $book = $this->Books->patchEntity($books, $this->request->getData());
-       if ($this->Bookstates->save($bookstate) && $this->Books->save($books)) {*/
-
        $book = $this->Books->newEntity();
        if ($this->request->isPost()) {
          $isbn = $this->request->data['Bookstates']['isbn'];
@@ -120,9 +111,6 @@ class BookstatesController extends AppController
            }
          }
        }
-       // $books = $this->Bookstates->Books->find('list', ['limit' => 200]);
-       // $categories = $this->Books->Categories->find('list', ['limit' => 200]);
-       // $publishers = $this->Books->Publishers->find('list', ['limit' => 200]);
 
        $this->set(compact('bookstate','book'));
      }
@@ -134,25 +122,72 @@ class BookstatesController extends AppController
      * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Network\Exception\NotFoundException When record not found.
      */
-    public function edit($id = null)
+    public function edit()
     {
-        $bookstate = $this->Bookstates->get($id, [
+      if ($this->request->isPost()) {
+
+
+      $this->request->getData();
+      $new_post = $this->request->getData('bookstate_id');
+        foreach ($new_post as $id) {
+
+        $bookstate[] = $this->Bookstates->get($id, [
             'contain' => ['Books']
         ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $bookstate = $this->Bookstates->patchEntity($bookstate, $this->request->getData());
-            if ($this->Bookstates->save($bookstate)) {
-                $this->Flash->success(__('The bookstate has been saved.'));
+      };
 
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The bookstate could not be saved. Please, try again.'));
-        }
+        $new_post=$this->request->getData('bookstate_id');
+        $new_test=$this->request->getData();
+
+
+        // if ($this->request->is(['patch', 'post', 'put'])) {
+        //     $bookstate = $this->Bookstates->patchEntity($bookstate, $this->request->getData());
+        //     if ($this->Bookstates->save($bookstate)) {
+        //         $this->Flash->success(__('The bookstate has been saved.'));
+        //
+        //         return $this->redirect(['action' => 'index']);
+        //     }
+        //     $this->Flash->error(__('The bookstate could not be saved. Please, try again.'));
+        // }
         $books = $this->Bookstates->Books->find('list', ['limit' => 200]);
         $categories = $this->Books->Categories->find('list', ['limit' => 200]);
         $publishers = $this->Books->Publishers->find('list', ['limit' => 200]);
-        $this->set(compact('bookstate', 'books', 'categories', 'publishers'));
+        $this->set(compact('bookstate', 'books', 'categories', 'publishers','new_test','new_post'));
     }
+  }
+
+  public function done()
+  {
+    $new_test = $this->request->getData();
+    foreach ($new_test as $value) {
+
+      $isbn = $new_test->$value->book->isbn;
+      $category_id = $new_test->book->category_id;
+      $name = $new_test->book->name;
+      $author = $new_test->book->author;
+      $publisher = $new_test->book->publisher_id;
+      $publish_date = $new_test->book->publish_date;
+      $book_entity =['isbn'=>$isbn,'category_id'=>$category_id,'name'=>$name,'author'=>$author,'publisher'=>$publisher,'publish_date'=>$publish_date];
+
+      $arrival_date = $new_test->arrival_date;
+      $delete_date = $new_test->delete_date;
+      $state = $new_test->state;
+      $bookstate_entity =['arrival_date'=>$arrival_date,'delete_date'=>$delete_date,'state'=>$state];
+
+      $book = $this->Books->newEntity();
+      $bookstate = $this->Bookstates->newEntity();
+      $book = $this->Books->patchEntity($book, $book_entity);
+      $bookstate = $this->Bookstates->patchEntity($bookstate, $bookstate_entity);
+    }
+    // if ($this->request->isPost()) {
+    //     $bookstate = $this->Bookstates->patchEntity($bookstate, $this->request->getData());
+    //     if ($this->Bookstates->save($bookstate)) {
+    //         $this->Flash->success(__('The bookstate has been saved.'));
+    //
+    //         return $this->redirect(['action' => 'index']);
+    //     }
+    //     $this->Flash->error(__('The bookstate could not be saved. Please, try again.'));
+  }
 
     /**
      * Delete method
@@ -178,71 +213,6 @@ class BookstatesController extends AppController
     {
         if ($this->request->isPost()){
           $find = $this->request->data['Bookstates']['find'];
-
-  //@tani l154~217
-        /*  $condition = ['conditions'=> ['or'=>['name like'=>'%'.$find.'%','isbn like'=>'%'.$find.'%']],
-                        'order'=>['isbn'=>'asc']];
-          $data = $this->Bookstates->find('all',$condition)->join([
-            'book' => [
-            'table' => 'Books',
-            'type' => 'INNER',
-            'conditions' => 'book.id = Bookstates.book_id',
-        ],
-        'publisher' => [
-            'table' => 'Publishers',
-            'type' => 'INNER',
-            'conditions' => 'publisher.id = book.publisher_id',
-        ],
-        'category' => [
-            'table' => 'Categories',
-            'type' => 'INNER',
-            'conditions' => 'category.id = book.category_id',
-        ]
-        ])->select([
-          'isbn'=>'book.isbn',
-          'category'=>'category.category',
-          'name'=>'book.name',
-          'author'=>'book.author',
-          'publisher'=>'publisher.publisher',
-          'publish_date'=>'book.publish_date',
-          'book_id'=>'book.id',
-          'arrival_date'=>'bookstates.arrival_date',
-          'delete_date'=>'bookstates.delete_date',
-          'state'=>'bookstates.state',
-
-          ])->toArray();
-        }else {
-          $data = $this->Bookstates->find()->join([
-            'book' => [
-            'table' => 'Books',
-            'type' => 'INNER',
-            'conditions' => 'book.id = Bookstates.book_id',
-        ],
-        'publisher' => [
-            'table' => 'Publishers',
-            'type' => 'INNER',
-            'conditions' => 'publisher.id = book.publisher_id',
-        ],
-        'category' => [
-            'table' => 'Categories',
-            'type' => 'INNER',
-            'conditions' => 'category.id = book.category_id',
-        ]
-        ])->select([
-          'isbn'=>'book.isbn',
-          'category'=>'category.category',
-          'name'=>'book.name',
-          'author'=>'book.author',
-          'publisher'=>'publisher.publisher',
-          'publish_date'=>'book.publish_date',
-          'book_id'=>'book.id',
-          'arrival_date'=>'bookstates.arrival_date',
-          'delete_date'=>'bookstates.delete_date',
-          'state'=>'bookstates.state',
-
-          ])->toArray();
-        }
-        $this->set('bookstates',$data);*/
 
 
           $condition = ['conditions'=> ['or'=>['name like'=>'%'.$find.'%','isbn like'=>'%'.$find.'%']],
