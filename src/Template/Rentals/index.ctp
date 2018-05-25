@@ -20,7 +20,7 @@
 
   <table id="test_table" border="1">
     <?php if (!empty($rentals)): ?>
-      <?php foreach ($rentals as $rentals): ?>
+      <?php foreach ($rentals as $rentals): ?>   
 
 
       <tr>
