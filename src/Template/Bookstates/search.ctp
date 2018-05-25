@@ -35,6 +35,10 @@
  'url'=>['controller'=>'Bookstates',
  'action'=>'edit']])?>
 
+ <?= $this->Form->create(null,
+ ['type'=>'post',
+ 'url'=>['controller'=>'Bookstates',
+ 'action'=>'edit']])?>
 
   <h3><?= __('Bookstates') ?></h3>
 
@@ -79,7 +83,6 @@
 
   </table>
 
-
   <div class="paginator">
     <ul class="pagination">
       <?= $this->Paginator->first('<< ' . __('first')) ?>
@@ -93,6 +96,8 @@
 </div>
 <div id="right_under">
 
+
   <?= $this->Form->button(__('変更・削除画面へ'),['class'=>'under_button','type'=>'submit']) ?>
+
   <?= $this->Form->end() ?>
 </div>
