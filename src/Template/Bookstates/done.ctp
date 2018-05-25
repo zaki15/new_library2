@@ -11,7 +11,7 @@
 <div id="right_center">
   <pre>
 <?php
-var_dump($new_test);
+var_dump($new_post);
  ?>
   </pre>
   <table id="test_table">

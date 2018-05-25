@@ -151,33 +151,31 @@ class BookstatesController extends AppController
 
   public function done()
   {
+    //$category_idと$publisherが取れていない・・・
       $new_test = $this->request->getData();
-      foreach ($new_test as $value) {
-
-        $isbn = $this->request->isbn;
-        $category_id = $this->request->category_id;
-        $name = $this->request->name;
-        $author = $this->request->author;
-        $publisher = $this->request->publisher_id;
-        $publish_date = $this->request->publish_date;
+      foreach ($new_test['book'] as $value) {
+        $isbn = $value['isbn'];
+        $category_id = $value['category_id'];
+        $name = $value['name'];
+        $author = $value['author'];
+        $publisher = $value['publishers']->publisher;
+        $publish_date = $value['publish_date'];
         $book_entity =['isbn'=>$isbn,'category_id'=>$category_id,'name'=>$name,'author'=>$author,'publisher'=>$publisher,'publish_date'=>$publish_date];
-
-        $arrival_date = $this->request->arrival_date;
-        $delete_date = $this->request->delete_date;
-        $state = $this->request->state;
+$new_post[] = $book_entity;
+        $arrival_date = $value['arrival_date'];
+        $delete_date = $value['delete_date'];
+        $state = $value['state'];
         $bookstate_entity =['arrival_date'=>$arrival_date,'delete_date'=>$delete_date,'state'=>$state];
 
         $book = $this->Books->newEntity();
         $bookstate = $this->Bookstates->newEntity();
-        $book = $this->Books->patchEntity($book, $book_entity);
-        $bookstate = $this->Bookstates->patchEntity($bookstate, $bookstate_entity);
-      };
+
+      }
       if ($this->request->is(['patch', 'post', 'put'])) {
-          $book = $this->Books->patchEntity($book, $this->request->getData());
-          $bookstate = $this->Books->patchEntity($bookstate, $this->request->getData());
+          $book = $this->Books->patchEntity($book, $book_entity);
+          $bookstate = $this->Books->patchEntity($bookstate, $bookstate_entity);
         if ($this->Books->save($book) && $this->Bookstates->save($bookstate)) {
           $this->Flash->success(__('The bookstate has been saved.'));
-
           return $this->redirect(['action' => 'index']);
         }else {
           $this->Flash->error(__('The bookstate could not be saved. Please, try again.'));
