@@ -14,7 +14,8 @@
 'action'=>'search']])?>
 
 
-<div>isbn<?= $this->Form->text('Bookstates.find') ?><?= $this->Form->button('検索',['type'=>'submit']) ?></div>
+<div>isbn<?= $this->Form->text('Bookstates.find') ?>
+  <?= $this->Form->button('検索',['type'=>'submit']) ?></div>
 <div><?= $this->Form->end() ?></div>
 </div>
 
@@ -29,7 +30,15 @@
 
    ?>
  </pre>
+ <?= $this->Form->create(null,
+ ['type'=>'post',
+ 'url'=>['controller'=>'Bookstates',
+ 'action'=>'edit']])?>
 
+ <?= $this->Form->create(null,
+ ['type'=>'post',
+ 'url'=>['controller'=>'Bookstates',
+ 'action'=>'edit']])?>
 
   <h3><?= __('Bookstates') ?></h3>
 
@@ -64,7 +73,8 @@
         <td><?= h($bookstate->arrival_date) ?></td>
         <td><?= h($bookstate->delete_date) ?></td>
         <td><?= h($count[$i]) ?></td>
-        <td><?=$this->Form->checkbox('bookstate_id[]',['value' => $bookstate->id])?></td>
+        <td><?= $this->Form->checkbox('bookstate_id[]',['value' => $bookstate->id,'hiddenField' => false])?></td>
+
 
       </tr>
       <?php $i++;?>
@@ -72,7 +82,6 @@
 
 
   </table>
-
 
   <div class="paginator">
     <ul class="pagination">
@@ -86,10 +95,9 @@
   </div>
 </div>
 <div id="right_under">
-  <?= $this->Form->create(null,
-  ['type'=>'post',
-  'url'=>['controller'=>'Bookstates',
-  'action'=>'edit']])?>
-  <?= $this->Form->button(__('変更・削除画面へ'),['class'=>'under_button']) ?>
+
+
+  <?= $this->Form->button(__('変更・削除画面へ'),['class'=>'under_button','type'=>'submit']) ?>
+
   <?= $this->Form->end() ?>
 </div>
