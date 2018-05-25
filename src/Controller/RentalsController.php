@@ -26,7 +26,7 @@ class RentalsController extends AppController
     return $limit_date;
   }
 
-  private function delay_check($rental_id){//rentals_idより延滞判定 返り値 配列 delay=>boolean diff_days=>返却期限との差
+  private function delay_check($rental_id){//rentals_idより延滞判定 返り値 連想配列 delay=>boolean diff_days=>返却期限との差
     $limit_date = $this->Rentals->get($rental_id)->limit_date;
     $today_date = Time::now();
 
