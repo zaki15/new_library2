@@ -26,7 +26,7 @@ class RentalsController extends AppController
   public function index()
   {
 
-
+    
     if($this->request->is('post')){
 
       $query = $this->request->data['Rentals']['find'];
@@ -60,74 +60,25 @@ class RentalsController extends AppController
     $prereturn_date = 0; //返却予定日
 
     var_dump($rent_date);
-//$day->add(new DateInterval('P3m'));
+    //$day->add(new DateInterval('P3m'));
 
     if(date($pub_date,strtotime("+3month")) >= date($rent_date)){
-      $prereturn_date = date('Y-m-d',strtotime("+10day"));
-    }else{
-      $prereturn_date = date('Y-m-d',strtotime("+15day"));
-    }
-    var_dump ($prereturn_date);
-
-
-   if(date('Y-m-d') > $prereturn_date){
-      echo ("延滞資料があります。");
-    }else{
-      echo ("貸出中");
-    }*/
-
-  }
-
-
-  public function test(){
-
-    if($this->request->is('post')){
-
-      $query = $this->request->data['Rentals']['find'];
-
-
-      $user = $this->Users->get($query, [
-        'contain' => ['Rentals', 'Reservations']
-      ]);/*
-      $user = $this->Users->find('all', [
-      'conditions'=>['Users.id'=>$query],
-      'contain' => ['Rentals', 'Reservations']
-    ]);*/
-    $this->set('user', $user);
-
+    $prereturn_date = date('Y-m-d',strtotime("+10day"));
   }else{
-    $this->set('user', $user);
-    //$condition = ['contain' => ['Bookstates', 'Users', 'Reservations']];
-    //$data = $this->Rentals->find('all')->contain('Users');
-  }
-  /*
-
-  if($this->request->is('post')){
-
-  $query = $this->request->data['Rentals']['find'];
-  $condition = ['conditions'=>['Users.id'=>$query],'contain'=>['Users']];
-  $rentals = $this->Rentals->find('all',$condition);
-  //$users = $this->paginate($this->Users);
-  $this->set(compact('rentals','users'));
-  //echo "<pre>".print_r($this->set(compact('rentals')))."</pre>";
+  $prereturn_date = date('Y-m-d',strtotime("+15day"));
+}
+var_dump ($prereturn_date);
 
 
+if(date('Y-m-d') > $prereturn_date){
+echo ("延滞資料があります。");
 }else{
-//$condition = ['contain' => ['Bookstates', 'Users', 'Reservations']];
-//$data = $this->Rentals->find('all')->contain('Users');
-}
-
-$params = array(
-'return_date' => array(
-'' >= 5,
-)
-);
-
-$count = $this->Rentals->find()->where(['Rentals.return_date'=>null])->count();
-$this->set(compact('rentals','users','count'));
-//$this->set('count',$count);*/
+echo ("貸出中");
+}*/
 
 }
+
+
 
 
 public function test(){

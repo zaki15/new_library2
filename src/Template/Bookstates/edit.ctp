@@ -12,18 +12,35 @@
 
 </div>
 <div id="right_center">
+  <pre>
+    <?php var_dump($new_test); ?>
+  </pre>
   <?= $this->Form->create($bookstate,['type'=>'post','url'=>['controller'=>'Bookstates','action'=>'edit']]) ?>
   <table border="1">
         <?php
+        $i='1';
             // echo $this->Form->control('book_id');
-            echo $this->Form->control('book.isbn');
-            echo $this->Form->control('book.name');
-            echo $this->Form->control('book.author');
-            echo $this->Form->control('book.publisher');
-            echo $this->Form->control('book.publish_date');
-            echo $this->Form->control('arrival_date');
-            echo $this->Form->control('delete_date');
-            echo $this->Form->control('state');
+            echo $this->Form->control('book'.$i.'.isbn');
+            echo $this->Form->control('book'.$i.'.name');
+            echo $this->Form->control('book'.$i.'.author');
+            echo $this->Form->control('book'.$i.'.publisher');
+            echo $this->Form->control('book'.$i.'.publish_date');
+            echo $this->Form->control('book'.$i.'.arrival_date');
+            echo $this->Form->control('book'.$i.'.delete_date');
+            echo $this->Form->control('book'.$i.'.state');
+
+            echo '<br>';
+            $i='2';
+
+            echo $this->Form->control('book'.$i.'.isbn');
+            echo $this->Form->control('book'.$i.'.name');
+            echo $this->Form->control('book'.$i.'.author');
+            echo $this->Form->control('book'.$i.'.publisher');
+            echo $this->Form->control('book'.$i.'.publish_date');
+            echo $this->Form->control('book'.$i.'.arrival_date');
+            echo $this->Form->control('book'.$i.'.delete_date');
+            echo $this->Form->control('book'.$i.'.state');
+
         ?>
       </table>
 

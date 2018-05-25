@@ -134,11 +134,16 @@ class BookstatesController extends AppController
      * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Network\Exception\NotFoundException When record not found.
      */
-    public function edit($id = null)
+    public function edit()
     {
+        $id=1;
         $bookstate = $this->Bookstates->get($id, [
             'contain' => ['Books']
         ]);
+        $test_post=$this->request->getData('bookstate_id');
+        $new_test=$this->request->getData();
+        /*
+
         if ($this->request->is(['patch', 'post', 'put'])) {
             $bookstate = $this->Bookstates->patchEntity($bookstate, $this->request->getData());
             if ($this->Bookstates->save($bookstate)) {
@@ -147,11 +152,11 @@ class BookstatesController extends AppController
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The bookstate could not be saved. Please, try again.'));
-        }
+        }*/
         $books = $this->Bookstates->Books->find('list', ['limit' => 200]);
         $categories = $this->Books->Categories->find('list', ['limit' => 200]);
         $publishers = $this->Books->Publishers->find('list', ['limit' => 200]);
-        $this->set(compact('bookstate', 'books', 'categories', 'publishers'));
+        $this->set(compact('bookstate', 'books', 'categories', 'publishers','test_post','new_test'));
     }
 
     /**
@@ -179,71 +184,6 @@ class BookstatesController extends AppController
         if ($this->request->isPost()){
           $find = $this->request->data['Bookstates']['find'];
 
-  //@tani l154~217
-        /*  $condition = ['conditions'=> ['or'=>['name like'=>'%'.$find.'%','isbn like'=>'%'.$find.'%']],
-                        'order'=>['isbn'=>'asc']];
-          $data = $this->Bookstates->find('all',$condition)->join([
-            'book' => [
-            'table' => 'Books',
-            'type' => 'INNER',
-            'conditions' => 'book.id = Bookstates.book_id',
-        ],
-        'publisher' => [
-            'table' => 'Publishers',
-            'type' => 'INNER',
-            'conditions' => 'publisher.id = book.publisher_id',
-        ],
-        'category' => [
-            'table' => 'Categories',
-            'type' => 'INNER',
-            'conditions' => 'category.id = book.category_id',
-        ]
-        ])->select([
-          'isbn'=>'book.isbn',
-          'category'=>'category.category',
-          'name'=>'book.name',
-          'author'=>'book.author',
-          'publisher'=>'publisher.publisher',
-          'publish_date'=>'book.publish_date',
-          'book_id'=>'book.id',
-          'arrival_date'=>'bookstates.arrival_date',
-          'delete_date'=>'bookstates.delete_date',
-          'state'=>'bookstates.state',
-
-          ])->toArray();
-        }else {
-          $data = $this->Bookstates->find()->join([
-            'book' => [
-            'table' => 'Books',
-            'type' => 'INNER',
-            'conditions' => 'book.id = Bookstates.book_id',
-        ],
-        'publisher' => [
-            'table' => 'Publishers',
-            'type' => 'INNER',
-            'conditions' => 'publisher.id = book.publisher_id',
-        ],
-        'category' => [
-            'table' => 'Categories',
-            'type' => 'INNER',
-            'conditions' => 'category.id = book.category_id',
-        ]
-        ])->select([
-          'isbn'=>'book.isbn',
-          'category'=>'category.category',
-          'name'=>'book.name',
-          'author'=>'book.author',
-          'publisher'=>'publisher.publisher',
-          'publish_date'=>'book.publish_date',
-          'book_id'=>'book.id',
-          'arrival_date'=>'bookstates.arrival_date',
-          'delete_date'=>'bookstates.delete_date',
-          'state'=>'bookstates.state',
-
-          ])->toArray();
-        }
-        $this->set('bookstates',$data);*/
-
 
           $condition = ['conditions'=> ['or'=>['name like'=>'%'.$find.'%','isbn like'=>'%'.$find.'%']],
                           'order'=>['isbn'=>'asc']];
@@ -257,9 +197,7 @@ class BookstatesController extends AppController
             $condition = ['conditions'=>['book_id'=>$bookstate->book_id]];
             $count[] = $this->Bookstates->find('all',$condition)->contain('Books')->count();
           }
-          //$count = $this->Bookstates->find('all')->contain('Books')->count();
-          //$books=$this->Books->find('all')->contain('Publishers')->toArray();
-          //$books=$this->Books->find('all')->contain('Books','Publishers','Categories');
+
         }
         $data=$this->paginate($this->Bookstates->find());
 

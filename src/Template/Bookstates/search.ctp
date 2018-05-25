@@ -30,6 +30,10 @@
 
    ?>
  </pre>
+ <?= $this->Form->create(null,
+ ['type'=>'post',
+ 'url'=>['controller'=>'Bookstates',
+ 'action'=>'edit']])?>
 
 
   <h3><?= __('Bookstates') ?></h3>
@@ -65,7 +69,7 @@
         <td><?= h($bookstate->arrival_date) ?></td>
         <td><?= h($bookstate->delete_date) ?></td>
         <td><?= h($count[$i]) ?></td>
-        <td><?= $this->Form->checkbox('bookstate_id[]',['value' => $bookstate->id])?></td>
+        <td><?= $this->Form->checkbox('bookstate_id[]',['value' => $bookstate->id,'hiddenField' => false])?></td>
 
 
       </tr>
@@ -88,10 +92,7 @@
   </div>
 </div>
 <div id="right_under">
-  <?= $this->Form->create(null,
-  ['type'=>'post',
-  'url'=>['controller'=>'Bookstates',
-  'action'=>'edit']])?>
-  <?= $this->Form->button(__('変更・削除画面へ'),['class'=>'under_button']) ?>
+
+  <?= $this->Form->button(__('変更・削除画面へ'),['class'=>'under_button','type'=>'submit']) ?>
   <?= $this->Form->end() ?>
 </div>
