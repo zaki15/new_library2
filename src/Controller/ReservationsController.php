@@ -20,6 +20,11 @@ class ReservationsController extends AppController
      */
     public function initialize(){
        $this->viewBuilder()->setLayout('main');
+       $this->loadModel('Rentals');
+       $this->loadModel('Users');
+       $this->loadModel('Books');
+       $this->loadModel('Bookstates');
+       $this->loadComponent('Paginator');
      }
 
     public $components = array('Paginator', 'Flash');
@@ -44,8 +49,7 @@ class ReservationsController extends AppController
         //ここまで追加
 
         $reservations = $this->paginate($reservations);
-
-        $this->set(compact('reservations'));
+        $this->set(compact('reservations',$reservations));
     }
 
     /**
