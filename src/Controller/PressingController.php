@@ -35,7 +35,7 @@ class PressingController extends AppController
       'contain' => ['Bookstates', 'Users', 'Reservations']
     ];*/
 
-    $data = $this->Rentals->find('all')->contain(['Users','Bookstates']);
+    $data = $this->Rentals->find('all')->contain(['Users','Bookstates','Bookstates' => ['Books']]);
     $delay10 = array();
     $delay30 = array();
     foreach ($data as $rental) {
@@ -48,9 +48,9 @@ class PressingController extends AppController
     }
     $this->set('delay10', $delay10);
     $this->set('delay30', $delay30);
-  }
+   }
 
-  private function delay_check($rental_id){//rentals_idより延滞判定 返り値 連想配列 delay=>boolean diff_days=>返却期限との差
+  private function delay_check($rental_id){ //rentals_idより延滞判定 返り値 連想配列 delay=>boolean diff_days=>返却期限との差
     $limit_date = $this->Rentals->get($rental_id)->limit_date;
     $mail_limit = $limit_date->modify('+10 day');
     $letter_limit = $limit_date->modify('+30 day');
