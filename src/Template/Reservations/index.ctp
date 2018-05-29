@@ -6,14 +6,13 @@
 ?>
 <div id="right_top">
     <br>
-    <br>
     <!--<? /*= $this->Html->link(__('新規予約'), ['action' => 'add'])*/ ?> -->
-    <h3>利用者ID検索</h3>
+    <h3>会員ID検索</h3>
     <?=$this->Form->create(null,['type'=>'post','url'=>['controller'=>'Reservations','action'=>'index']]) ?>
-    <div><?=$this->Form->text('id') ?></div>
-    <div><?=$this->Form->submit('検索') ?></div>
+    <div><?=$this->Form->text('id') ?>
+    <?=$this->Form->submit('検索') ?></div>
     <?=$this->Form->end() ?>
-
+    <br><?= $this->Html->link(__('新規予約'), ['action' => 'add']) ?>
 </div>
 <br>
 <br>
@@ -23,20 +22,20 @@
     <table border="1" id="test_table">
         <thead>
             <tr>
-                <th scope="col"><?= $this->Paginator->sort('id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('user_id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('last_name') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('first_name') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('bookstate_id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('book_id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('book_isbn') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('date') ?></th>
-                <th scope="col" class="actions"><?= __('Actions') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('id','予約ID') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('user_id','会員ID') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('last_name','名字') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('first_name','名前') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('bookstate_id','資料台帳ID') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('book_id','資料名') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('book_isbn','ISBN番号') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('date','予約日') ?></th>
+                <th scope="col" class="actions"><?= __('') ?></th>
             </tr>
         </thead>
 
         <tbody>
-            <?php foreach ($reservations as $reservation): ?> <!--$reservationsはデフォルトでテーブルクラスに用意されているオブジェクト -->
+            <?php foreach ($reservations as $reservation): ?>
             <tr>
                 <td><?= $this->Number->format($reservation->id) ?></td>
                 <td><?= $reservation->has('user') ? $this->Html->link($reservation->user->id, ['controller' => 'Users', 'action' => 'view', $reservation->user->id]) : '' ?></td>
@@ -47,9 +46,8 @@
                 <td><?= $reservation->has('book') ? $this->Html->link($reservation->book->isbn, ['controller' => 'Books', 'action' => 'view', $reservation->book->isbn]) : '' ?></td>
                 <td><?= h($reservation->date) ?></td>
                 <td class="actions">
-                    <?= $this->Html->link(__('View'), ['action' => 'view', $reservation->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $reservation->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $reservation->id], ['confirm' => __(' # {0} の予約情報を削除しますか?', $reservation->id)]) ?>
+                    <?= $this->Html->link(__('詳細'), ['action' => 'view', $reservation->id]) ?>
+                    <?= $this->Form->postLink(__('削除'), ['action' => 'delete', $reservation->id], ['confirm' => __(' # {0} の予約情報を削除しますか?', $reservation->id)]) ?>
                 </td>
             </tr>
             <?php endforeach; ?>
@@ -68,6 +66,4 @@
 </div>
 
 <div id="right_under">
-
-  <input type="button" name="" value="新規予約" onclick="location.href='http://localhost/library_system/reservations/add'">
 </div>

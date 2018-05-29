@@ -24,10 +24,9 @@ class ReservationsController extends AppController
        $this->loadModel('Users');
        $this->loadModel('Books');
        $this->loadModel('Bookstates');
+       $this->loadComponent('Flash');
        $this->loadComponent('Paginator');
      }
-
-    public $components = array('Paginator', 'Flash');
 
     public function index()
     {
@@ -46,10 +45,22 @@ class ReservationsController extends AppController
         }else{
             $reservations = $this->Reservations->find('all');
         }
+
+        //資料目録IDでの検索処理
+        if($this->request->is('post')){
+            $find = $this->request->getData('bookid');
+            if(empty($find)){
+            $reservations = $this->Reservations->find('all');
+          }else{
+            $reservations = $this->Reservations->find()->where(['book_id'=>$find]);
+          }
+        }else{
+            $reservations = $this->Reservations->find('all');
+        }
         //ここまで追加
 
         $reservations = $this->paginate($reservations);
-        $this->set(compact('reservations',$reservations));
+        $this->set('reservations',$reservations);
     }
 
     /**

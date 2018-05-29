@@ -7,7 +7,7 @@
 <br>
 <div id="right_top">
         <br>
-        <?= $this->Html->link(__('閲覧中の予約情報を編集'), ['action' => 'edit', $reservation->id]) ?><br>
+      <!--  <?= $this->Html->link(__('閲覧中の予約情報を編集'), ['action' => 'edit', $reservation->id]) ?><br>-->
         <?= $this->Form->postLink(__('閲覧中の予約情報を削除'), ['action' => 'delete', $reservation->id], ['confirm' => __('Are you sure you want to delete # {0}?', $reservation->id)]) ?><br>
         <?= $this->Html->link(__('予約リストに戻る'), ['action' => 'index']) ?><br>
 </div>
@@ -28,7 +28,7 @@
             <td><?= $reservation->has('user') ? $this->Html->link($reservation->user->first_name, ['controller' => 'Users', 'action' => 'view', $reservation->user->first_name]) : '' ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Bookstate') ?></th>
+            <th scope="row"><?= __('資料台帳ID') ?></th>
             <td><?= $reservation->has('bookstate') ? $this->Html->link($reservation->bookstate->id, ['controller' => 'Bookstates', 'action' => 'view', $reservation->bookstate->id]) : '' ?></td>
         </tr>
         <tr>
@@ -44,7 +44,7 @@
             <td><?= h($reservation->date) ?></td>
         </tr>
     </table>
-    <div id="right_under">
+    <!-- <div id="right_under">
         <h4><?= __('Related Rentals') ?></h4>
         <?php if (!empty($reservation->rentals)): ?>
         <table border="1" id="test_table">
@@ -77,4 +77,4 @@
         </table>
         <?php endif; ?>
     </div>
-</div>
+</div> -->
